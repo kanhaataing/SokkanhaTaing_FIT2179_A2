@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <title> Australia's Vanishing Wildlife</title>
+        <meta charset="UTF-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+        <script src = "https://cdn.jsdelivr.net/npm/vega@5"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+
+    </head>
+
+    <body>
+
+        <h1>AUSTRALIA'S <br> VANISHING WILDLIFE</h1>
+
+        <img id="wombat_image" src="wombat.jpg">
+        <div>
+            <h2> The Scale of the Crisis</h2>
+
+
+            <div>
+                <h3> Critically Endangered Animals</h3>
+            </div>
+            
+            <div>
+                <h3> Species Threat Density by State</h3>
+                <div id="choropleth_chartOne"></div>
+            </div>
+
+            <div>
+                <h3> Proportion of Species by Threat Level</h3>
+                <div id="waffle_chartTwo"></div>
+            </div>
+        </div>
+
+        <script src="graphs.js"></script>
+    </body>
+</html>
