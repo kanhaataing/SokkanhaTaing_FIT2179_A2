@@ -1,14 +1,14 @@
 body {
     background-color: #fffdee;
     margin: 0;
-    padding: 50px;
+    padding: 70px;
     box-sizing: border-box;
     width: 100vw;
     overflow-x: hidden;
 }
 
 
-h1{
+#title{
    color: #403931;
     font-size: 70px;
     font-family: 'Playfair Display', Georgia, serif;
@@ -31,3 +31,15 @@ h1{
     object-position: center 90%;
 }
 
+#intro_text{
+    font-size: 18px;
+    text-align: justify;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 50px;
+}
+
+#subheadingOne {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    border-top: #403931
+}

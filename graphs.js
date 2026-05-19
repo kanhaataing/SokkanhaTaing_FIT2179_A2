@@ -93,3 +93,81 @@ const waffleSpec = {
 };
 
 vegaEmbed('#waffle_chartTwo', waffleSpec);
+
+const radialSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Threatened Species by Taxonomic Group",
+    "background": "transparent",
+    "width": 500,
+    "height": 500,
+    "data": {"url": "taxon_group_counts.csv"},
+    "layer": [
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 50, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 80, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 110, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 140, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 170, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 200, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 200, "stroke": "white", "strokeWidth": 1},
+            "encoding": {
+                "theta": {
+                    "field": "taxonGroup",
+                    "type": "nominal",
+                    "sort": {"field": "count", "order": "descending"}
+                },
+                "radius": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "scale": {"rangeMin": 40, "rangeMax": 200}
+                },
+                "color": {
+                    "field": "taxonGroup",
+                    "type": "nominal",
+                    "legend": {"title": "Animal Group"}
+                },
+                "tooltip": [
+                    {"field": "taxonGroup", "type": "nominal", "title": "Group"},
+                    {"field": "count", "type": "quantitative", "title": "Threatened Species"}
+                ]
+            }
+        },
+        {
+            "mark": {"type": "text", "radiusOffset": 15, "fontSize": 11, "fontWeight": "bold"},
+            "encoding": {
+                "theta": {
+                    "field": "taxonGroup",
+                    "type": "nominal",
+                    "sort": {"field": "count", "order": "descending"}
+                },
+                "radius": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "scale": {"rangeMin": 40, "rangeMax": 200}
+                },
+                "text": {"field": "count", "type": "quantitative"},
+                "color": {"value": "black"}
+            }
+        }
+    ]
+};
+
+vegaEmbed('#radialgraph_chartThree', radialSpec);
