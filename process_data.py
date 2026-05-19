@@ -84,3 +84,32 @@ taxon_counts_group = taxon_counts_group[taxon_counts_group['taxonGroup'].isin(an
 print(taxon_counts_group)
 taxon_counts_group.to_csv('taxon_group_counts.csv', index=False)
 print('\nSaved to taxon_group_counts.csv')
+
+
+
+# process data for species listed as threatened by year
+taxon = df[('Taxonomic Data', 'Taxon Group')]
+dates = df[('EPBC Act Threatened, Migratory, Marine and Cetacean Species ', 'EPBC Threatened Species Date Effective')]
+threat_status = df[('EPBC Act Threatened, Migratory, Marine and Cetacean Species ', 'EPBC Threat Status')]
+
+listing_df2 = pd.DataFrame({
+    'date': dates, 
+    'threatLevel': threat_status,
+    'taxonGroup': taxon
+})
+
+animal_groups = ['birds', 'mammals', 'reptiles', 'frogs', 'ray-finned fishes']
+
+listing_df2 = listing_df2[listing_df2['date'].notna()]
+listing_df2 = listing_df2[listing_df2['threatLevel'].isin(['Vulnerable', 'Endangered', 'Critically Endangered'])]
+listing_df2 = listing_df2[listing_df2['taxonGroup'].isin(animal_groups)]
+
+listing_df2['year'] = pd.to_datetime(listing_df2['date'], format='%d-%b-%Y').dt.year
+
+listing_counts2 = listing_df2.groupby(['year', 'threatLevel', 'taxonGroup']).size().reset_index(name='count')
+listing_counts2 = listing_counts2.sort_values('year')
+listing_counts2['cumulative'] = listing_counts2.groupby(['threatLevel', 'taxonGroup'])['count'].cumsum()
+
+print(listing_counts2)
+listing_counts2.to_csv('listing_trends.csv', index=False)
+print('\nSaved to listing_trends.csv')

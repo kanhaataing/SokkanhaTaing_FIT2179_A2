@@ -2,8 +2,8 @@ const choroplethSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "title": "Threatened Species by State",
         background: "transparent",
-        "width": 600,
-        "height": 500,
+        "width": 1200,
+        "height": 700,
         "projection": {"type": "mercator"},
         "layer": [
             {
@@ -62,8 +62,8 @@ const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Proportion of Species by Threat Level",
     "background": "transparent",
-    "width": 300,
-    "height": 300,
+    "width": 600,
+    "height": 400,
     "data": {"url": "waffle_data.csv"},
     "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
     "encoding": {
@@ -171,3 +171,53 @@ const radialSpec = {
 };
 
 vegaEmbed('#radialgraph_chartThree', radialSpec);
+
+
+const stackedAreaSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Cumulative Threatened Species Listed Over Time by Animal Group",
+    "background": "transparent",
+    "data": {"url": "listing_trends.csv"},
+    "facet": {
+        "field": "taxonGroup",
+        "type": "nominal",
+        "title": "Animal Group",
+        "columns": 3
+    },
+    "spec": {
+        "width": 180,
+        "height": 150,
+        "mark": {"type": "area", "opacity": 0.8},
+        "encoding": {
+            "x": {
+                "field": "year",
+                "type": "quantitative",
+                "title": "Year",
+                "axis": {"format": "d", "labelAngle": -30}
+            },
+            "y": {
+                "field": "cumulative",
+                "type": "quantitative",
+                "title": "Cumulative Species",
+                "stack": true
+            },
+            "color": {
+                "field": "threatLevel",
+                "type": "nominal",
+                "scale": {
+                    "domain": ["Vulnerable", "Endangered", "Critically Endangered"],
+                    "range": ["#f4a261", "#e76f51", "#c1121f"]
+                },
+                "legend": {"title": "Threat Level"}
+            },
+            "tooltip": [
+                {"field": "taxonGroup", "type": "nominal", "title": "Animal Group"},
+                {"field": "year", "type": "quantitative", "title": "Year"},
+                {"field": "threatLevel", "type": "nominal", "title": "Threat Level"},
+                {"field": "cumulative", "type": "quantitative", "title": "Total Species"}
+            ]
+        }
+    }
+};
+
+vegaEmbed('#stackedarea_chartFive', stackedAreaSpec);

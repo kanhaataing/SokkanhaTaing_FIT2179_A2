@@ -1,0 +1,147 @@
+year,threatLevel,taxonGroup,count,cumulative
+2000,Endangered,birds,25,25
+2000,Vulnerable,ray-finned fishes,8,8
+2000,Vulnerable,mammals,28,28
+2000,Vulnerable,frogs,8,8
+2000,Vulnerable,birds,39,39
+2000,Vulnerable,reptiles,25,25
+2000,Endangered,ray-finned fishes,11,11
+2000,Endangered,mammals,18,18
+2000,Endangered,frogs,2,2
+2000,Endangered,reptiles,9,9
+2001,Endangered,birds,1,26
+2001,Endangered,mammals,1,19
+2001,Endangered,reptiles,1,10
+2001,Vulnerable,birds,1,40
+2001,Vulnerable,mammals,4,32
+2002,Critically Endangered,birds,4,4
+2003,Vulnerable,ray-finned fishes,1,9
+2004,Vulnerable,mammals,1,33
+2004,Endangered,mammals,1,20
+2004,Critically Endangered,reptiles,1,1
+2004,Critically Endangered,mammals,1,1
+2005,Endangered,birds,4,30
+2005,Endangered,mammals,1,21
+2005,Endangered,ray-finned fishes,2,13
+2005,Vulnerable,birds,1,41
+2006,Vulnerable,ray-finned fishes,4,13
+2006,Endangered,reptiles,2,12
+2006,Vulnerable,mammals,1,34
+2006,Critically Endangered,birds,1,5
+2006,Endangered,birds,2,32
+2007,Critically Endangered,frogs,2,2
+2007,Critically Endangered,mammals,1,2
+2007,Critically Endangered,reptiles,1,2
+2007,Endangered,frogs,1,3
+2008,Endangered,birds,1,33
+2008,Vulnerable,mammals,1,35
+2009,Vulnerable,reptiles,1,26
+2009,Vulnerable,birds,1,42
+2009,Endangered,birds,1,34
+2009,Endangered,mammals,2,23
+2009,Endangered,reptiles,2,14
+2010,Endangered,birds,1,35
+2010,Vulnerable,birds,1,43
+2010,Vulnerable,mammals,2,37
+2011,Critically Endangered,ray-finned fishes,1,1
+2011,Critically Endangered,reptiles,2,4
+2011,Endangered,birds,1,36
+2011,Endangered,reptiles,1,15
+2011,Vulnerable,birds,1,44
+2012,Critically Endangered,frogs,1,3
+2012,Critically Endangered,ray-finned fishes,2,3
+2012,Endangered,ray-finned fishes,1,14
+2012,Vulnerable,ray-finned fishes,1,14
+2012,Vulnerable,reptiles,1,27
+2013,Endangered,birds,1,37
+2013,Critically Endangered,frogs,2,5
+2013,Critically Endangered,birds,1,6
+2014,Critically Endangered,birds,2,8
+2014,Critically Endangered,mammals,1,3
+2014,Critically Endangered,reptiles,3,7
+2014,Endangered,birds,4,41
+2014,Endangered,reptiles,1,16
+2014,Vulnerable,birds,4,48
+2015,Critically Endangered,mammals,1,4
+2015,Critically Endangered,birds,4,12
+2015,Critically Endangered,reptiles,1,8
+2015,Endangered,birds,1,42
+2015,Endangered,mammals,7,30
+2015,Vulnerable,birds,6,54
+2015,Vulnerable,mammals,3,40
+2016,Vulnerable,birds,1,55
+2016,Vulnerable,mammals,9,49
+2016,Endangered,mammals,3,33
+2016,Critically Endangered,reptiles,1,9
+2016,Endangered,birds,3,45
+2016,Critically Endangered,ray-finned fishes,1,4
+2016,Critically Endangered,birds,1,13
+2017,Endangered,birds,1,46
+2017,Vulnerable,mammals,1,50
+2018,Critically Endangered,birds,1,14
+2018,Critically Endangered,mammals,4,8
+2018,Endangered,birds,3,49
+2018,Endangered,mammals,3,36
+2018,Endangered,ray-finned fishes,1,15
+2018,Endangered,reptiles,2,18
+2019,Vulnerable,birds,1,56
+2019,Endangered,ray-finned fishes,2,17
+2019,Endangered,mammals,1,37
+2019,Vulnerable,frogs,2,10
+2019,Critically Endangered,mammals,1,9
+2019,Critically Endangered,frogs,10,15
+2019,Endangered,frogs,2,5
+2020,Endangered,birds,1,50
+2020,Endangered,mammals,2,39
+2020,Endangered,ray-finned fishes,1,18
+2020,Vulnerable,birds,1,57
+2021,Vulnerable,ray-finned fishes,1,15
+2021,Vulnerable,mammals,1,51
+2021,Vulnerable,frogs,2,12
+2021,Vulnerable,birds,4,61
+2021,Endangered,birds,4,54
+2021,Endangered,frogs,3,8
+2021,Critically Endangered,ray-finned fishes,1,5
+2021,Critically Endangered,frogs,2,17
+2021,Endangered,mammals,2,41
+2022,Endangered,reptiles,2,20
+2022,Vulnerable,mammals,4,55
+2022,Vulnerable,birds,2,63
+2022,Endangered,mammals,2,43
+2022,Endangered,frogs,2,10
+2022,Endangered,birds,3,57
+2022,Critically Endangered,reptiles,2,11
+2022,Critically Endangered,ray-finned fishes,1,6
+2023,Vulnerable,reptiles,1,28
+2023,Vulnerable,frogs,4,16
+2023,Vulnerable,birds,5,68
+2023,Endangered,reptiles,11,31
+2023,Endangered,ray-finned fishes,5,23
+2023,Endangered,mammals,3,46
+2023,Endangered,birds,8,65
+2023,Critically Endangered,reptiles,15,26
+2023,Critically Endangered,ray-finned fishes,16,22
+2023,Critically Endangered,frogs,1,18
+2023,Critically Endangered,birds,2,16
+2023,Endangered,frogs,1,11
+2024,Endangered,reptiles,6,37
+2024,Vulnerable,reptiles,2,30
+2024,Vulnerable,birds,8,76
+2024,Endangered,ray-finned fishes,1,24
+2024,Critically Endangered,ray-finned fishes,4,26
+2024,Endangered,birds,4,69
+2024,Critically Endangered,reptiles,1,27
+2024,Critically Endangered,birds,1,17
+2024,Endangered,frogs,1,12
+2025,Vulnerable,reptiles,1,31
+2025,Critically Endangered,birds,1,18
+2025,Endangered,frogs,3,15
+2025,Endangered,ray-finned fishes,2,26
+2025,Endangered,reptiles,1,38
+2025,Vulnerable,birds,1,77
+2025,Vulnerable,mammals,2,57
+2025,Vulnerable,ray-finned fishes,1,16
+2026,Endangered,ray-finned fishes,1,27
+2026,Endangered,reptiles,2,40
+2026,Endangered,mammals,1,47
+2026,Vulnerable,reptiles,3,34
