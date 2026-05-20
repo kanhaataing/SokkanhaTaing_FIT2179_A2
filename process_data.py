@@ -113,3 +113,31 @@ listing_counts2['cumulative'] = listing_counts2.groupby(['threatLevel', 'taxonGr
 print(listing_counts2)
 listing_counts2.to_csv('listing_trends.csv', index=False)
 print('\nSaved to listing_trends.csv')
+
+#calcaulate big number callout values
+threat_status = df[('EPBC Act Threatened, Migratory, Marine and Cetacean Species ', 'EPBC Threat Status')]
+
+counts = threat_status.value_counts()
+print("=== Big Number Callout Values ===")
+print(f"Critically Endangered: {counts.get('Critically Endangered', 0)}")
+print(f"Endangered: {counts.get('Endangered', 0)}")
+print(f"Vulnerable: {counts.get('Vulnerable', 0)}")
+print(f"Extinct: {counts.get('Extinct', 0)}")
+print(f"Total threatened: {counts.get('Critically Endangered', 0) + counts.get('Endangered', 0) + counts.get('Vulnerable', 0)}")
+
+#process data to create a csv of taxon groups and threat level counts
+animal_groups = ['birds', 'mammals', 'reptiles', 'frogs', 'insects', 
+                 'ray-finned fishes', 'sharks']
+
+taxon_group = df[('Taxonomic Data', 'Taxon Group')]
+threat_status = df[('EPBC Act Threatened, Migratory, Marine and Cetacean Species ', 'EPBC Threat Status')]
+
+taxon_df = pd.DataFrame({'taxonGroup': taxon_group, 'threatLevel': threat_status})
+taxon_df = taxon_df[taxon_df['threatLevel'].notna()]
+taxon_df = taxon_df[taxon_df['taxonGroup'].isin(animal_groups)]
+taxon_df = taxon_df[taxon_df['threatLevel'].isin(['Vulnerable', 'Endangered', 'Critically Endangered', 'Extinct'])]
+
+taxon_threat = taxon_df.groupby(['taxonGroup', 'threatLevel']).size().reset_index(name='count')
+print(taxon_threat)
+taxon_threat.to_csv('taxon_threat.csv', index=False)
+print('\nSaved to taxon_threat.csv!')

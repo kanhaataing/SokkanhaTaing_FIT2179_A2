@@ -43,3 +43,30 @@ body {
     font-size: 30px;
     border-top: #403931
 }
+
+#callouts {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0;
+
+}
+
+.callout {
+    text-align:center;
+    padding: 30px 100px;
+    border-radius: 10px;
+}
+
+.callout h2 {
+    font-size: 70px;
+    margin: 0;
+    color: #c1121f;
+}
+
+.callout p {
+    font-size: 20px;
+    margin: 5px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

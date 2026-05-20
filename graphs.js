@@ -84,7 +84,9 @@ const waffleSpec = {
                 "domain": ["Vulnerable", "Endangered", "Critically Endangered", "Extinct"],
                 "range": ["#f4a261", "#e76f51", "#c1121f", "#370617"]
             },
-            "legend": {"title": "Threat Level"}
+            "legend": {
+                "title": "Threat Level",
+                "orient": "bottom"}
         },
         "tooltip": [
             {"field": "threatLevel", "type": "nominal", "title": "Threat Level"}
