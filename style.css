@@ -41,7 +41,53 @@ body {
 #subheadingOne {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 30px;
-    border-top: #403931
+    text-align: center;
+    color: #403931;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid #403931;
+    padding-bottom: 10px;
+    border-top: 1px solid #403931;
+    padding-top: 10px;
+}
+
+#subheadingTwo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    text-align: center;
+    color: #403931;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid #403931;
+    padding-bottom: 10px;
+    border-top: 1px solid #403931;
+    padding-top: 10px;
+}
+
+#subheadingThree {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    text-align: center;
+    color: #403931;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid #403931;
+    padding-bottom: 10px;
+    border-top: 1px solid #403931;
+    padding-top: 10px;
+}
+
+#subheadingFour {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    text-align: center;
+    color: #403931;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid #403931;
+    padding-bottom: 10px;
+    border-top: 1px solid #403931;
+    padding-top: 10px;
 }
 
 #callouts {
@@ -61,7 +107,7 @@ body {
 .callout h2 {
     font-size: 70px;
     margin: 0;
-    color: #c1121f;
+    color: #8c0902;
 }
 
 .callout p {

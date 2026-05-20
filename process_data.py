@@ -33,6 +33,8 @@ print("\nSaved to threat_by_state.csv")
 threat_counts = threat_status.value_counts().reset_index()
 threat_counts.columns = ['threatLevel', 'count']
 
+
+
 print(threat_counts)
 threat_counts.to_csv('threat_levels.csv', index=False)
 print("\nSaved to threat_levels.csv")
@@ -41,6 +43,14 @@ print("\nSaved to threat_levels.csv")
 threat_counts_filtered = threat_counts[threat_counts['threatLevel'].isin([
     'Endangered', 'Vulnerable', 'Critically Endangered', 'Extinct'
 ])]
+
+threat_order = ['Vulnerable', 'Endangered', 'Critically Endangered', 'Extinct']
+threat_counts_filtered['threatLevel'] = pd.Categorical(
+    threat_counts_filtered['threatLevel'], 
+    categories=threat_order, 
+    ordered=True
+)
+threat_counts_filtered = threat_counts_filtered.sort_values('threatLevel')
 
 total = threat_counts_filtered['count'].sum()
 waffle_data = []

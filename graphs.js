@@ -1,6 +1,6 @@
 const choroplethSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "title": "Threatened Species by State",
+        "title": "",
         background: "transparent",
         "width": 1200,
         "height": 700,
@@ -60,9 +60,9 @@ const choroplethSpec = {
 
 const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Proportion of Species by Threat Level",
+    "title": "",
     "background": "transparent",
-    "width": 600,
+    "width": 650,
     "height": 400,
     "data": {"url": "waffle_data.csv"},
     "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
@@ -75,14 +75,15 @@ const waffleSpec = {
         "y": {
             "field": "y",
             "type": "ordinal",
-            "axis": null
+            "axis": null,
+            "sort": "ascending"
         },
         "color": {
             "field": "threatLevel",
             "type": "nominal",
             "scale": {
                 "domain": ["Vulnerable", "Endangered", "Critically Endangered", "Extinct"],
-                "range": ["#f4a261", "#e76f51", "#c1121f", "#370617"]
+                "range": ["#fece79", "#b14a36", "#8c0902", "#210100"]
             },
             "legend": {
                 "title": "Threat Level",
@@ -98,22 +99,18 @@ vegaEmbed('#waffle_chartTwo', waffleSpec);
 
 const radialSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Threatened Species by Taxonomic Group",
+    "title": "",
     "background": "transparent",
-    "width": 500,
-    "height": 500,
+    "width": 700,
+    "height": 700,
     "data": {"url": "taxon_group_counts.csv"},
     "layer": [
         {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 50, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 60, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
             "encoding": {"theta": {"value": 6.28}}
         },
         {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 80, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
-        },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 110, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 100, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
             "encoding": {"theta": {"value": 6.28}}
         },
         {
@@ -121,15 +118,19 @@ const radialSpec = {
             "encoding": {"theta": {"value": 6.28}}
         },
         {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 170, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 180, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
             "encoding": {"theta": {"value": 6.28}}
         },
         {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 200, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 220, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
             "encoding": {"theta": {"value": 6.28}}
         },
         {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 200, "stroke": "white", "strokeWidth": 1},
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 260, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
+            "encoding": {"theta": {"value": 6.28}}
+        },
+        {
+            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 260, "stroke": "white", "strokeWidth": 1},
             "encoding": {
                 "theta": {
                     "field": "taxonGroup",
@@ -139,12 +140,19 @@ const radialSpec = {
                 "radius": {
                     "field": "count",
                     "type": "quantitative",
-                    "scale": {"rangeMin": 40, "rangeMax": 200}
+                    "scale": {"rangeMin": 40, "rangeMax": 260}  
                 },
+
                 "color": {
                     "field": "taxonGroup",
                     "type": "nominal",
-                    "legend": {"title": "Animal Group"}
+                    "scale": {
+                    "domain": ["birds", "mammals", "reptiles", "frogs", "insects", "ray-finned fishes", "sharks"],
+                    "range": ["#7fc7cc", "#af5031", "#4b5b34", "#ea8913", "#fdaba5", "#092f33", "#980204"]
+                },
+                    "legend": {"title": "Animal Group",
+                        "orient": "bottom"
+                    }
                 },
                 "tooltip": [
                     {"field": "taxonGroup", "type": "nominal", "title": "Group"},
@@ -161,10 +169,10 @@ const radialSpec = {
                     "sort": {"field": "count", "order": "descending"}
                 },
                 "radius": {
-                    "field": "count",
-                    "type": "quantitative",
-                    "scale": {"rangeMin": 40, "rangeMax": 200}
-                },
+                "field": "count",
+                "type": "quantitative",
+                "scale": {"rangeMin": 40, "rangeMax": 260}
+            },
                 "text": {"field": "count", "type": "quantitative"},
                 "color": {"value": "black"}
             }
@@ -177,7 +185,7 @@ vegaEmbed('#radialgraph_chartThree', radialSpec);
 
 const stackedAreaSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Cumulative Threatened Species Listed Over Time by Animal Group",
+    "title": "",
     "background": "transparent",
     "data": {"url": "listing_trends.csv"},
     "facet": {
@@ -208,7 +216,7 @@ const stackedAreaSpec = {
                 "type": "nominal",
                 "scale": {
                     "domain": ["Vulnerable", "Endangered", "Critically Endangered"],
-                    "range": ["#f4a261", "#e76f51", "#c1121f"]
+                    "range": ["#fece79", "#b14a36", "#590202"]
                 },
                 "legend": {"title": "Threat Level"}
             },
@@ -227,7 +235,7 @@ vegaEmbed('#stackedarea_chartFive', stackedAreaSpec);
 
 const dotMapSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Monitored Threatened Species Across Australia",
+    "title": "",
     "background": "transparent",
     "width": 1500,
     "height": 1000,
@@ -250,7 +258,7 @@ const dotMapSpec = {
             "mark": {
                 "type": "circle",
                 "opacity": 0.6,
-                "size": 80
+                "size": 100
             },
             "encoding": {
                 "longitude": {"field": "longitude", "type": "quantitative"},
@@ -258,6 +266,10 @@ const dotMapSpec = {
                 "color": {
                     "field": "taxonomicGroup",
                     "type": "nominal",
+                    "scale": {
+                        "domain": ["Birds", "Mammals", "Amphibians", "Plants"],
+                        "range": ["#084463", "#8c0902", "#e6a341", "#628b33"]
+                    },
                     "legend": {
                         "title": "Taxonomic Group",
                         "orient": "bottom"
