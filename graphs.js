@@ -223,3 +223,55 @@ const stackedAreaSpec = {
 };
 
 vegaEmbed('#stackedarea_chartFive', stackedAreaSpec);
+
+
+const dotMapSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Monitored Threatened Species Across Australia",
+    "background": "transparent",
+    "width": 1500,
+    "height": 1000,
+    "projection": {"type": "mercator"},
+    "layer": [
+        {
+            "data": {
+                "url": "australia-states.json",
+                "format": {"type": "json", "property": "features"}
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "#e8e8e8",
+                "stroke": "white",
+                "strokeWidth": 1
+            }
+        },
+        {
+            "data": {"url": "dot_map.csv"},
+            "mark": {
+                "type": "circle",
+                "opacity": 0.6,
+                "size": 80
+            },
+            "encoding": {
+                "longitude": {"field": "longitude", "type": "quantitative"},
+                "latitude": {"field": "latitude", "type": "quantitative"},
+                "color": {
+                    "field": "taxonomicGroup",
+                    "type": "nominal",
+                    "legend": {
+                        "title": "Taxonomic Group",
+                        "orient": "bottom"
+                    }
+                },
+                "tooltip": [
+                    {"field": "taxonomicGroup", "type": "nominal", "title": "Group"},
+                    {"field": "epbcStatus", "type": "nominal", "title": "Status"},
+                    {"field": "latitude", "type": "quantitative", "title": "Latitude"},
+                    {"field": "longitude", "type": "quantitative", "title": "Longitude"}
+                ]
+            }
+        }
+    ]
+};
+
+vegaEmbed('#dotmap_chartSix', dotMapSpec);

@@ -125,19 +125,20 @@ print(f"Vulnerable: {counts.get('Vulnerable', 0)}")
 print(f"Extinct: {counts.get('Extinct', 0)}")
 print(f"Total threatened: {counts.get('Critically Endangered', 0) + counts.get('Endangered', 0) + counts.get('Vulnerable', 0)}")
 
-#process data to create a csv of taxon groups and threat level counts
-animal_groups = ['birds', 'mammals', 'reptiles', 'frogs', 'insects', 
-                 'ray-finned fishes', 'sharks']
+#process data to create a dot map
+tsx = pd.read_csv('tsx-aggregated-data-dataset.csv', low_memory=False)
 
-taxon_group = df[('Taxonomic Data', 'Taxon Group')]
-threat_status = df[('EPBC Act Threatened, Migratory, Marine and Cetacean Species ', 'EPBC Threat Status')]
+dot_map = tsx[['TaxonomicGroup', 'RegionCentroidLatitude', 'RegionCentroidLongitude', 'EPBCStatus']].drop_duplicates()
+dot_map.columns = ['taxonomicGroup', 'latitude', 'longitude', 'epbcStatus']
+dot_map = dot_map.dropna()
 
-taxon_df = pd.DataFrame({'taxonGroup': taxon_group, 'threatLevel': threat_status})
-taxon_df = taxon_df[taxon_df['threatLevel'].notna()]
-taxon_df = taxon_df[taxon_df['taxonGroup'].isin(animal_groups)]
-taxon_df = taxon_df[taxon_df['threatLevel'].isin(['Vulnerable', 'Endangered', 'Critically Endangered', 'Extinct'])]
+dot_map = dot_map[
+    (dot_map['latitude'] >= -44) &   # southern bound
+    (dot_map['latitude'] <= -10) &   # northern bound
+    (dot_map['longitude'] >= 113) &  # western bound
+    (dot_map['longitude'] <= 154)    # eastern bound
+]
 
-taxon_threat = taxon_df.groupby(['taxonGroup', 'threatLevel']).size().reset_index(name='count')
-print(taxon_threat)
-taxon_threat.to_csv('taxon_threat.csv', index=False)
-print('\nSaved to taxon_threat.csv!')
+print(f'Total dots after filtering: {len(dot_map)}')
+dot_map.to_csv('dot_map.csv', index=False)
+print('Saved to dot_map.csv')
