@@ -64,8 +64,8 @@ const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 650,
-    "height": 400,
+    "width": 750,
+    "height": 500,
     "data": {"url": "waffle_data.csv"},
     "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
     "encoding": {
@@ -103,8 +103,8 @@ const radialSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 700,
-    "height": 700,
+    "width": 500,
+    "height": 500,
     "data": {"url": "taxon_group_counts.csv"},
     "layer": [
         {

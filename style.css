@@ -149,16 +149,12 @@ h3{
 #endangered_box { background-color: #b14a36; }
 #critical_box { background-color: #590202; }
 
-.chart_text_row {
-    display: flex;
-    align-items: flex-start;
-    gap: 40px;
-}
 
 .waffle_chart_desc {
     font-family: 'Times New Roman', Times, serif;
     font-size: 18px;
     text-align: justify;
+    
 }
 
 .map_container {
@@ -202,12 +198,11 @@ h3{
 }
 
 .chart_text_row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    justify-content: center;  
-    gap: 0px;  
+    gap: 40px;
 }
-
 .radial_summary {
     min-width: 200px;
     padding: 20px;
@@ -252,4 +247,15 @@ h3{
 
 .radial_chart_desc {
     margin-left: 50px;
+}
+
+#waffle_row {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#radial_row {
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
 }
