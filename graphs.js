@@ -2,8 +2,8 @@ const choroplethSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "title": "",
         background: "transparent",
-        "width": 1200,
-        "height": 700,
+        "width": 1500,
+        "height": 800,
         "projection": {"type": "mercator"},
         "layer": [
             {
@@ -25,7 +25,9 @@ const choroplethSpec = {
                         "field": "threatCount",
                         "type": "quantitative",
                         "scale": {"scheme": "reds"},
-                        "legend": {"title": "Threatened Species"}
+                        "legend": {"title": "Threatened Species",
+                            "orient": "bottom"
+                        }
                     },
                     "tooltip": [
                         {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
@@ -147,8 +149,8 @@ const radialSpec = {
                     "field": "taxonGroup",
                     "type": "nominal",
                     "scale": {
-                    "domain": ["birds", "mammals", "reptiles", "frogs", "insects", "ray-finned fishes", "sharks"],
-                    "range": ["#7fc7cc", "#af5031", "#4b5b34", "#ea8913", "#fdaba5", "#092f33", "#980204"]
+                    "domain": ["birds", "mammals", "reptiles", "frogs", "insects", "ray-finned fishes", "sharks", "crabs, lobsters, shrimps, woodlice"],
+                    "range": ["#7fc7cc", "#af5031", "#4b5b34", "#ea8913", "#fdaba5", "#092f33", "#980204", "#f3c379"]
                 },
                     "legend": {"title": "Animal Group",
                         "orient": "bottom"

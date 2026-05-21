@@ -90,6 +90,14 @@ body {
     padding-top: 10px;
 }
 
+h3{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #403031;
+}
+
 #callouts {
     display: flex;
     justify-content: center;
@@ -166,20 +174,82 @@ body {
     font-size: 12px;
     font-family: Georgia, serif;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-    max-width: 120px;
+    max-width: 200px;
 }
 
 #nsw_annotation {
     top: 60%;
-    left: 75%;
+    left: 72%;
+    font-size: 14px;
 }
 
 #qld_annotation {
     top: 25%;
-    left: 65%;
+    left: 74%;
+    font-size: 14px;
 }
 
 #nt_annotation {
-    top: 20%;
-    left: 40%;
+    top:5%;
+    left: 15%;
+    font-size: 14px;
+}
+
+#wa_annotation {
+    top: 60%;
+    left: 5%;
+    font-size: 14px;
+}
+
+.chart_text_row {
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    gap: 0px;  
+}
+
+.radial_summary {
+    min-width: 200px;
+    padding: 20px;
+    border-left: 1.5px solid #403931;
+    margin-top: -150px;
+}
+
+.radial_summary h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    color: #403931;
+    margin-bottom: 15px;
+    margin-left: 50px;
+}
+
+.summary_list {
+    list-style: decimal;
+    padding-left: 20px;
+    margin-left: 50px;
+}
+
+.summary_list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    font-family: Georgia, serif;
+    font-size: 13px;
+
+}
+
+.summary_group {
+    color: #403931;
+    font-weight: bold;
+}
+
+.summary_count {
+    color: #c1121f;
+    font-weight: bold;
+}
+
+.radial_chart_desc {
+    margin-left: 50px;
 }
