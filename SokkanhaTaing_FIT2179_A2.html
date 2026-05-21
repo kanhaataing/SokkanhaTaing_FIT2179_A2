@@ -64,12 +64,32 @@
 
             <div>
                 <h3> Proportion of Species by Threat Level</h3>
-                <div id="waffle_chartTwo"></div>
+                <div class="chart_text_row">
+                    <div id="waffle_chartTwo"></div>
+                    <p class="waffle_chart_desc"> Each square represents 1% of Australia's threatened species. 
+                        Nearly half are Endangered or Critically Endangered, with 102 species 
+                        already lost forever.
+                    </p>
+                </div>
             </div>
             
             <div>
-                <h3> Species Threat Density by State</h3>
-                <div id="choropleth_chartOne"></div>
+                <h3>Species Threat Density by State</h3>
+                <div class="map_container">
+                    <div id="choropleth_chartOne"></div>
+
+                    <div class="map_annotation" id="nsw_annotation">
+                        <p><strong>NSW</strong><br>761 species</p>
+                    </div>
+
+                    <div class="map_annotation" id="qld_annotation">
+                        <p><strong>QLD</strong><br>614 species</p>
+                    </div>
+
+                    <div class="map_annotation" id="nt_annotation">
+                        <p><strong>NT</strong><br>158 species</p>
+                    </div>
+                </div>
             </div>
 
             <h2 id="subheadingTwo"> WHO IS DISAPPEARING?</h2>
@@ -87,7 +107,28 @@
 
             <div>
                 <h3>Threatened Species Over Time</h3>
-                <div id="stackedarea_chartFive"></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 600px;">
+                    <div id="area_birds"></div>
+                    <div id="area_frogs"></div>
+                    <div id="area_mammals"></div>
+                    <div id="area_rayfinned"></div>
+                    <div id="area_reptiles"></div>
+                    <div id="area_legend">
+                        <p>Threat Level</p>
+                        <div class="legend_item">
+                            <div class="legend_box" id="vulnerable_box"></div>
+                            <span>Vulnerable</span>
+                        </div>
+                        <div class="legend_item">
+                            <div class="legend_box" id="endangered_box"></div>
+                            <span>Endangered</span>
+                        </div>
+                        <div class="legend_item">
+                            <div class="legend_box" id="critical_box"></div>
+                            <span>Critically Endangered</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <h2 id="subheadingThree"> WHY IS IT HAPPENING </h2>

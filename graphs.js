@@ -183,32 +183,27 @@ const radialSpec = {
 vegaEmbed('#radialgraph_chartThree', radialSpec);
 
 
-const stackedAreaSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "",
-    "background": "transparent",
-    "data": {"url": "listing_trends.csv"},
-    "facet": {
-        "field": "taxonGroup",
-        "type": "nominal",
-        "title": "Animal Group",
-        "columns": 3
-    },
-    "spec": {
-        "width": 180,
-        "height": 150,
+function makeAreaSpec(group) {
+    return {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "title": group,
+        "background": "transparent",
+        "width": 250,
+        "height": 120,
+        "data": {"url": "listing_trends.csv"},
+        "transform": [{"filter": `datum.taxonGroup === '${group}'`}],
         "mark": {"type": "area", "opacity": 0.8},
         "encoding": {
             "x": {
                 "field": "year",
                 "type": "quantitative",
                 "title": "Year",
-                "axis": {"format": "d", "labelAngle": -30}
+                "axis": {"format": "d", "labelAngle": -30, "tickCount": 5}
             },
             "y": {
                 "field": "cumulative",
                 "type": "quantitative",
-                "title": "Cumulative Species",
+                "title": "Species",
                 "stack": true
             },
             "color": {
@@ -218,20 +213,22 @@ const stackedAreaSpec = {
                     "domain": ["Vulnerable", "Endangered", "Critically Endangered"],
                     "range": ["#fece79", "#b14a36", "#590202"]
                 },
-                "legend": {"title": "Threat Level"}
+                "legend": null
             },
             "tooltip": [
-                {"field": "taxonGroup", "type": "nominal", "title": "Animal Group"},
                 {"field": "year", "type": "quantitative", "title": "Year"},
                 {"field": "threatLevel", "type": "nominal", "title": "Threat Level"},
                 {"field": "cumulative", "type": "quantitative", "title": "Total Species"}
             ]
         }
-    }
-};
+    };
+}
 
-vegaEmbed('#stackedarea_chartFive', stackedAreaSpec);
-
+vegaEmbed('#area_birds', makeAreaSpec('birds'));
+vegaEmbed('#area_frogs', makeAreaSpec('frogs'));
+vegaEmbed('#area_mammals', makeAreaSpec('mammals'));
+vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes'));
+vegaEmbed('#area_reptiles', makeAreaSpec('reptiles'));
 
 const dotMapSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",

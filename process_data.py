@@ -152,3 +152,4 @@ dot_map = dot_map[
 print(f'Total dots after filtering: {len(dot_map)}')
 dot_map.to_csv('dot_map.csv', index=False)
 print('Saved to dot_map.csv')
+
