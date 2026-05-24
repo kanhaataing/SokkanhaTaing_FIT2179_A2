@@ -6,6 +6,7 @@
         <meta name ="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
         <script src = "https://cdn.jsdelivr.net/npm/vega@5"></script>
         <script src = "https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -18,22 +19,25 @@
 
         <h1 id="title">AUSTRALIA'S <br> VANISHING WILDLIFE</h1>
 
-        <img id="wombat_image" src="wombat.jpg">
+        <div class="intro_row">
 
-        <p id="intro_text">Australia's biodiversity is declining at an alarming rate, with more than 1,700 species and 
-            ecological communities currently classified as threated and at risk of extinction. Many species 
-            that once thrived across the Australian landscape for thousands of years have disappeared within 
-            only the last few decades.
-            Preserving biodiversity is essential for maintaining ecological balance, as evert species plays an important 
-            role in sustaining healthy ecosystems. However, Australia's unique biodiversity continues to face increasing 
-            threats from environmental change, habitat destruction, and human activity.
-            <br>
-            <br>
-            This porject aims to highlight the severity of Austrlia's vanishing biodiversity and raise awareness 
-            of the urgent need for consevration. It is hoped that through greater understanding, individuals and 
-            communities will be encouraged to play a role in protecting and preserving Australia's natural
-            beauty for future generations. 
-        </p>
+            <img id="wombat_image" src="wombat.jpg">
+
+            <p id="intro_text">Australia's biodiversity is declining at an alarming rate, with more than 1,700 species and 
+                ecological communities currently classified as threated and at risk of extinction. Many species 
+                that once thrived across the Australian landscape for thousands of years have disappeared within 
+                only the last few decades.
+                Preserving biodiversity is essential for maintaining ecological balance, as evert species plays an important 
+                role in sustaining healthy ecosystems. However, Australia's unique biodiversity continues to face increasing 
+                threats from environmental change, habitat destruction, and human activity.
+                <br>
+                <br>
+                This porject aims to highlight the severity of Austrlia's vanishing biodiversity and raise awareness 
+                of the urgent need for consevration. It is hoped that through greater understanding, individuals and 
+                communities will be encouraged to play a role in protecting and preserving Australia's natural
+                beauty for future generations. 
+            </p>
+        </div>
 
         <div>
             <h2 id="subheadingOne"> THE SCALE OF THE CRISIS</h2>
@@ -60,7 +64,6 @@
                     </div>
                     </div>
                 </div>
-            </div>
 
             <div>
                 <h3> Proportion of Species by Threat Level</h3>
@@ -71,6 +74,7 @@
                 </div>
             </div>
 
+            <div>
                 <h3>Species Threat Density by State</h3>
                 <div class="map_container">
                     <div id="choropleth_chartOne"></div>
@@ -100,15 +104,15 @@
             <div>
                 <h3>Theatened Species by Taxonomic Group</h3>
                 <div class="chart_text_row" style="align-items: center;">
-                    <div id="radialgraph_chartThree"></div>
-                    <div class="radial_summary">
+                    <div id="bargraph_chartThree"></div>
+                    <div class="bar_summary">
                         <h4>Most Threatened Animal Groups</h4>
                         <ol class="summary_list">
                             <li><span class="summary_group">Birds</span><span class="summary_count">186 species</span></li>
                             <li><span class="summary_group">Mammals</span><span class="summary_count">152 species</span></li>
                             <li><span class="summary_group">Reptiles</span><span class="summary_count">102 species</span></li>
                         </ol>
-                        <p class="radial_chart_desc">Birds, mammals and reptiles account for the majority of Australia's 
+                        <p class="bar_chart_desc">Birds, mammals and reptiles account for the majority of Australia's 
                             threatened animal species.</p>
                     </div>
                 </div>
@@ -121,26 +125,25 @@
 
             <div>
                 <h3>Threatened Species Over Time</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 600px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%;">
                     <div id="area_birds"></div>
-                    <div id="area_frogs"></div>
                     <div id="area_mammals"></div>
                     <div id="area_rayfinned"></div>
                     <div id="area_reptiles"></div>
-                    <div id="area_legend">
-                        <p>Threat Level</p>
-                        <div class="legend_item">
-                            <div class="legend_box" id="vulnerable_box"></div>
-                            <span>Vulnerable</span>
-                        </div>
-                        <div class="legend_item">
-                            <div class="legend_box" id="endangered_box"></div>
-                            <span>Endangered</span>
-                        </div>
-                        <div class="legend_item">
-                            <div class="legend_box" id="critical_box"></div>
-                            <span>Critically Endangered</span>
-                        </div>
+                </div>
+                <div id="area_legend">
+                    <p>Threat Level</p>
+                    <div class="legend_item">
+                        <div class="legend_box" id="vulnerable_box"></div>
+                        <span>Vulnerable</span>
+                    </div>
+                    <div class="legend_item">
+                        <div class="legend_box" id="endangered_box"></div>
+                        <span>Endangered</span>
+                    </div>
+                    <div class="legend_item">
+                        <div class="legend_box" id="critical_box"></div>
+                        <span>Critically Endangered</span>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ const choroplethSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "title": "",
         background: "transparent",
-        "width": 1500,
+        "width": "container",
         "height": 800,
         "projection": {"type": "mercator"},
         "layer": [
@@ -58,7 +58,10 @@ const choroplethSpec = {
         ]
     };
 
-        vegaEmbed('#choropleth_chartOne', choroplethSpec);
+        vegaEmbed('#choropleth_chartOne', choroplethSpec, {
+            "actions": false,
+            "renderer": "svg"
+        });
 
 const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -99,138 +102,45 @@ const waffleSpec = {
 
 vegaEmbed('#waffle_chartTwo', waffleSpec);
 
-const radialSpec = {
+const barChartSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 500,
-    "height": 500,
+    "width": 400,
+    "height": 300,
     "data": {"url": "taxon_group_counts.csv"},
-    "layer": [
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 60, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
+    "mark": {"type": "bar", "cornerRadiusEnd": 4},
+    "encoding": {
+        "y": {
+            "field": "taxonGroup",
+            "type": "nominal",
+            "sort": "-x",
+            "title": null,
+            "axis": {"labelFontSize": 13}
         },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 100, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
+        "x": {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Number of Threatened Species"
         },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 140, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
-        },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 180, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
-        },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 220, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
-        },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 260, "fill": "transparent", "stroke": "#ccc", "strokeWidth": 0.5},
-            "encoding": {"theta": {"value": 6.28}}
-        },
-        {
-            "mark": {"type": "arc", "innerRadius": 40, "outerRadius": 260, "stroke": "white", "strokeWidth": 1},
-            "encoding": {
-                "theta": {
-                    "field": "taxonGroup",
-                    "type": "nominal",
-                    "sort": {"field": "count", "order": "descending"}
-                },
-                "radius": {
-                    "field": "count",
-                    "type": "quantitative",
-                    "scale": {"rangeMin": 40, "rangeMax": 260}  
-                },
-
-                "color": {
-                    "field": "taxonGroup",
-                    "type": "nominal",
-                    "scale": {
-                    "domain": ["birds", "mammals", "reptiles", "frogs", "insects", "ray-finned fishes", "sharks", "crabs, lobsters, shrimps, woodlice"],
-                    "range": ["#7fc7cc", "#af5031", "#4b5b34", "#ea8913", "#fdaba5", "#092f33", "#980204", "#f3c379"]
-                },
-                    "legend": {"title": "Animal Group",
-                        "orient": "bottom"
-                    }
-                },
-                "tooltip": [
-                    {"field": "taxonGroup", "type": "nominal", "title": "Group"},
-                    {"field": "count", "type": "quantitative", "title": "Threatened Species"}
-                ]
-            }
-        },
-        {
-            "mark": {"type": "text", "radiusOffset": 15, "fontSize": 11, "fontWeight": "bold"},
-            "encoding": {
-                "theta": {
-                    "field": "taxonGroup",
-                    "type": "nominal",
-                    "sort": {"field": "count", "order": "descending"}
-                },
-                "radius": {
-                "field": "count",
-                "type": "quantitative",
-                "scale": {"rangeMin": 40, "rangeMax": 260}
+        "color": {
+            "field": "taxonGroup",
+            "type": "nominal",
+            "scale": {
+                "domain": ["birds", "mammals", "reptiles", "ray-finned fishes", "frogs", "crabs, lobsters, shrimps, woodlice", "insects", "sharks"],
+                "range": ["#7fc7cc", "#af5031", "#4b5b34", "#092f33", "#ea8913", "#e9c46a", "#fdaba5", "#980204"]
             },
-                "text": {"field": "count", "type": "quantitative"},
-                "color": {"value": "black"}
-            }
-        }
-    ]
+            "legend": null
+        },
+        "tooltip": [
+            {"field": "taxonGroup", "type": "nominal", "title": "Group"},
+            {"field": "count", "type": "quantitative", "title": "Threatened Species"}
+        ]
+    }
 };
 
-vegaEmbed('#radialgraph_chartThree', radialSpec);
+vegaEmbed('#bargraph_chartThree', barChartSpec);
 
-
-function makeAreaSpec(group) {
-    return {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "title": group,
-        "background": "transparent",
-        "width": 250,
-        "height": 120,
-        "data": {"url": "listing_trends.csv"},
-        "transform": [{"filter": `datum.taxonGroup === '${group}'`}],
-        "mark": {"type": "area", "opacity": 0.8},
-        "encoding": {
-            "x": {
-                "field": "year",
-                "type": "quantitative",
-                "title": "Year",
-                "axis": {"format": "d", "labelAngle": -30, "tickCount": 5}
-            },
-            "y": {
-                "field": "cumulative",
-                "type": "quantitative",
-                "title": "Species",
-                "stack": true
-            },
-            "color": {
-                "field": "threatLevel",
-                "type": "nominal",
-                "scale": {
-                    "domain": ["Vulnerable", "Endangered", "Critically Endangered"],
-                    "range": ["#fece79", "#b14a36", "#590202"]
-                },
-                "legend": null
-            },
-            "tooltip": [
-                {"field": "year", "type": "quantitative", "title": "Year"},
-                {"field": "threatLevel", "type": "nominal", "title": "Threat Level"},
-                {"field": "cumulative", "type": "quantitative", "title": "Total Species"}
-            ]
-        }
-    };
-}
-
-vegaEmbed('#area_birds', makeAreaSpec('birds'));
-vegaEmbed('#area_frogs', makeAreaSpec('frogs'));
-vegaEmbed('#area_mammals', makeAreaSpec('mammals'));
-vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes'));
-vegaEmbed('#area_reptiles', makeAreaSpec('reptiles'));
 
 const dotMapSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -286,3 +196,49 @@ const dotMapSpec = {
 };
 
 vegaEmbed('#dotmap_chartSix', dotMapSpec);
+
+function makeAreaSpec(group) {
+    return {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "title": group,
+        "background": "transparent",
+        "width": "container",
+        "height": 200,
+        "data": {"url": "listing_trends.csv"},
+        "transform": [{"filter": `datum.taxonGroup === '${group}'`}],
+        "mark": {"type": "area", "opacity": 0.8},
+        "encoding": {
+            "x": {
+                "field": "year",
+                "type": "quantitative",
+                "title": "Year",
+                "axis": {"format": "d", "labelAngle": -30, "tickCount": 5}
+            },
+            "y": {
+                "field": "cumulative",
+                "type": "quantitative",
+                "title": "Species",
+                "stack": true
+            },
+            "color": {
+                "field": "threatLevel",
+                "type": "nominal",
+                "scale": {
+                    "domain": ["Vulnerable", "Endangered", "Critically Endangered"],
+                    "range": ["#fece79", "#b14a36", "#590202"]
+                },
+                "legend": null
+            },
+            "tooltip": [
+                {"field": "year", "type": "quantitative", "title": "Year"},
+                {"field": "threatLevel", "type": "nominal", "title": "Threat Level"},
+                {"field": "cumulative", "type": "quantitative", "title": "Total Species"}
+            ]
+        }
+    };
+}
+
+vegaEmbed('#area_birds', makeAreaSpec('birds'));
+vegaEmbed('#area_mammals', makeAreaSpec('mammals'));
+vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes'));
+vegaEmbed('#area_reptiles', makeAreaSpec('reptiles'));
