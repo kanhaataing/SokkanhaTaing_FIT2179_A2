@@ -153,3 +153,44 @@ print(f'Total dots after filtering: {len(dot_map)}')
 dot_map.to_csv('dot_map.csv', index=False)
 print('Saved to dot_map.csv')
 
+# process marine species data
+terrestrial_intro = pd.read_csv('IntroducedSpeciesOccurrencesByTerrestrialEcoregion.csv')
+
+terrestrial_grouped = terrestrial_intro.groupby(['yearStart', 'griisStatus'])['speciesCount'].sum().reset_index()
+terrestrial_grouped = terrestrial_grouped[terrestrial_grouped['yearStart'] >= 1970]
+
+print(terrestrial_grouped)
+terrestrial_grouped.to_csv('terrestrial_introduced.csv', index=False)
+print('\nSaved to terrestrial_introduced.csv!')
+
+
+
+# process lanad and marine introduced vs invasive species
+terrestrial_intro = pd.read_csv('IntroducedSpeciesOccurrencesByTerrestrialEcoregion.csv')
+marine_intro = pd.read_csv('IntroducedSpeciesOccurrencesByMarineEcoregion.csv')
+
+# Process terrestrial
+terrestrial_grouped = terrestrial_intro.groupby(['yearStart', 'griisStatus'])['speciesCount'].sum().reset_index()
+terrestrial_grouped = terrestrial_grouped[terrestrial_grouped['yearStart'] >= 1970]
+terrestrial_grouped['environment'] = 'Terrestrial'
+
+# Process marine
+marine_grouped = marine_intro.groupby(['yearStart', 'griisStatus'])['speciesCount'].sum().reset_index()
+marine_grouped = marine_grouped[marine_grouped['yearStart'] >= 1970]
+marine_grouped['environment'] = 'Marine'
+
+# Combine
+combined = pd.concat([terrestrial_grouped, marine_grouped])
+combined = combined[combined['griisStatus'] != 'Native']
+
+# Add category column BEFORE using it
+combined['category'] = combined['environment'] + ' - ' + combined['griisStatus']
+
+# Calculate percentage growth
+combined['pct_growth'] = combined.groupby('category')['speciesCount'].transform(
+    lambda x: (x / x.iloc[0] - 1) * 100
+)
+
+print(combined.head(20))
+combined.to_csv('combined_introduced.csv', index=False)
+print('\nSaved to combined_introduced.csv')

@@ -152,10 +152,17 @@
 
             <div>
                 <h3>Top Threat Causes and Proportion Affected</h3>
+                <div id="lollipop_chartSeven" ></div>
             </div>
 
             <div>
-                <h3>Native vs Introduced Invase Marine Species Over Time</h3>
+                <h3>Rise of Introduced and Invasive Species</h3>
+                <div id="filter_buttons">
+                    <button class="filter_btn active" onclick="updateChart('both')">Both</button>
+                    <button class="filter_btn" onclick="updateChart('Terrestrial')">Land</button>
+                    <button class="filter_btn" onclick="updateChart('Marine')">Marine</button>
+                </div>
+                <div id="terrestrial_chartEight"></div>
             </div>
 
             <h2 id="subheadingFour"> WHAT CAN WE DO?</h2>

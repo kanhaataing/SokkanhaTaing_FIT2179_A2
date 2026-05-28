@@ -274,3 +274,26 @@ h3{
 }
 
 
+#filter_buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter_btn {
+    padding: 8px 20px;
+    border: 1px solid #403931;
+    background-color: transparent;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #403931;
+}
+
+.filter_btn.active {
+    background-color: #403931;
+    color: #fffdee;
+}
+
+

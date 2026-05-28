@@ -242,3 +242,98 @@ vegaEmbed('#area_birds', makeAreaSpec('birds'));
 vegaEmbed('#area_mammals', makeAreaSpec('mammals'));
 vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes'));
 vegaEmbed('#area_reptiles', makeAreaSpec('reptiles'));
+
+//strip plot for top threat cases and proportion affected
+const lollipopSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "",
+    "background": "transparent",
+    "width": 600,
+    "height": 400,
+    "data": {"url": "soe2016biopressures-affecting-epbc-listed-species.csv"},
+    "transform": [
+        {"filter": "datum['Threat'] !== 'Uncategorised/other' && datum['Threat'] !== 'Protected status'"}
+    ],
+    "layer": [
+        {
+            "mark": {"type": "rule", "color": "#c1121f", "strokeWidth": 2},
+            "encoding": {
+                "y": {"field": "Threat", "type": "nominal", "sort": "-x", "title": null},
+                "x": {"field": "Proportion of EPBC listed species (%)", "type": "quantitative", "title": "% of Species Affected"},
+                "x2": {"value": 0}
+            }
+        },
+        {
+            "mark": {"type": "point", "filled": true, "size": 100, "color": "#c1121f"},
+            "encoding": {
+                "y": {"field": "Threat", "type": "nominal", "sort": "-x"},
+                "x": {"field": "Proportion of EPBC listed species (%)", "type": "quantitative"},
+                "tooltip": [
+                    {"field": "Threat", "type": "nominal", "title": "Threat"},
+                    {"field": "Proportion of EPBC listed species (%)", "type": "quantitative", "title": "% Affected"}
+                ]
+            }
+        }
+    ]
+};
+
+vegaEmbed('#lollipop_chartSeven', lollipopSpec);
+
+function drawCombinedChart(environment) {
+    const filterExpr = environment === 'both' 
+        ? "true" 
+        : `datum.environment === '${environment}'`;
+
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "title": "",
+        "background": "transparent",
+        "width": 600,
+        "height": 400,
+        "data": {"url": "combined_introduced.csv"},
+        "transform": [
+            {"filter": filterExpr}
+        ],
+        "mark": {"type": "line", "point": true, "interpolate": "monotone"},
+        "encoding": {
+            "x": {
+                "field": "yearStart",
+                "type": "quantitative",
+                "title": "Year",
+                "axis": {"format": "d"}
+            },
+            "y": {
+                "field": "pct_growth",
+                "type": "quantitative",
+                "title": "% Growth since 1971"
+            },
+            "color": {
+                "field": "category",
+                "type": "nominal",
+                "scale": {
+                    "domain": ["Terrestrial - Introduced", "Terrestrial - Invasive", "Marine - Introduced", "Marine - Invasive"],
+                    "range": ["#4b5b34", "#a7c957", "#4a90d9", "#1d3557"]
+                },
+                "legend": {"title": "Category"}
+            },
+            "tooltip": [
+                {"field": "yearStart", "type": "quantitative", "title": "Year"},
+                {"field": "category", "type": "nominal", "title": "Category"},
+                {"field": "pct_growth", "type": "quantitative", "title": "% Growth", "format": ".1f"},
+                {"field": "speciesCount", "type": "quantitative", "title": "Species Count"}
+            ]
+        }
+    };
+
+    vegaEmbed('#terrestrial_chartEight', spec);
+}
+
+drawCombinedChart('both');
+
+function updateChart(environment) {
+
+    document.querySelectorAll('.filter_btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    drawCombinedChart(environment);
+}
