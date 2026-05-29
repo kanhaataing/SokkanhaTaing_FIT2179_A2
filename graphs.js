@@ -145,8 +145,14 @@ const barChartSpec = {
 vegaEmbed('#bargraph_chartThree', barChartSpec, {"actions": false});
 
 
+function makeAreaSpec(group, threatFilter = null) {
+    const transforms = [
+        {"filter": `datum.taxonGroup === '${group}'`}
+    ];
+    if (threatFilter) {
+        transforms.push({"filter": `datum.threatLevel === '${threatFilter}'`});
+    }
 
-function makeAreaSpec(group) {
     return {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "title": group,
@@ -154,7 +160,7 @@ function makeAreaSpec(group) {
         "width": "container",
         "height": 200,
         "data": {"url": "listing_trends.csv"},
-        "transform": [{"filter": `datum.taxonGroup === '${group}'`}],
+        "transform": transforms,
         "mark": {"type": "area", "opacity": 0.8},
         "encoding": {
             "x": {
@@ -187,12 +193,35 @@ function makeAreaSpec(group) {
     };
 }
 
-vegaEmbed('#area_birds', makeAreaSpec('birds'));
-vegaEmbed('#area_mammals', makeAreaSpec('mammals'));
-vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes'));
-vegaEmbed('#area_reptiles', makeAreaSpec('reptiles'));
+function embedAllCharts(threatFilter = null) {
+    vegaEmbed('#area_birds', makeAreaSpec('birds', threatFilter));
+    vegaEmbed('#area_mammals', makeAreaSpec('mammals', threatFilter));
+    vegaEmbed('#area_rayfinned', makeAreaSpec('ray-finned fishes', threatFilter));
+    vegaEmbed('#area_reptiles', makeAreaSpec('reptiles', threatFilter));
+}
 
-//strip plot for top threat cases and proportion affected
+
+embedAllCharts();
+
+let activeFilter = null;
+
+document.querySelectorAll('.legend_item').forEach(item => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', () => {
+        const threat = item.querySelector('span').textContent.trim();
+
+        activeFilter = activeFilter === threat ? null : threat;
+
+        embedAllCharts(activeFilter);
+
+        document.querySelectorAll('.legend_item').forEach(el => {
+            const label = el.querySelector('span').textContent.trim();
+            el.style.opacity = (!activeFilter || label === activeFilter) ? '1' : '0.3';
+        });
+    });
+});
+
+//lollipop plot for top threat cases and proportion affected
 const lollipopSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
@@ -237,7 +266,7 @@ function drawCombinedChart(environment) {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "title": "",
         "background": "transparent",
-        "width": 600,
+        "width": "container",
         "height": 400,
         "data": {"url": "combined_introduced.csv"},
         "transform": [
@@ -263,7 +292,9 @@ function drawCombinedChart(environment) {
                     "domain": ["Terrestrial - Introduced", "Terrestrial - Invasive", "Marine - Introduced", "Marine - Invasive"],
                     "range": ["#4b5b34", "#a7c957", "#4a90d9", "#1d3557"]
                 },
-                "legend": {"title": "Category"}
+                "legend": {"title": "Category", 
+                    "orient": "bottom"
+                }
             },
             "tooltip": [
                 {"field": "yearStart", "type": "quantitative", "title": "Year"},
@@ -274,7 +305,10 @@ function drawCombinedChart(environment) {
         }
     };
 
-    vegaEmbed('#terrestrial_chartEight', spec);
+    vegaEmbed('#line_chartNine', spec, {
+        "actions": false,
+        "renderer": "svg"
+    });
 }
 
 drawCombinedChart('both');
@@ -287,12 +321,12 @@ function updateChart(environment) {
     drawCombinedChart(environment);
 }
 
-const protectionSpec = {
+const divergingbarSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 500,
-    "height": 300,
+    "width": "container",
+    "height": 400,
     "data": {"url": "protection_stacked.csv"},
     "transform": [
         {
@@ -302,7 +336,7 @@ const protectionSpec = {
     ],
     "layer": [
         {
-            "mark": {"type": "bar", "cornerRadiusEnd": 4},
+            "mark": {"type": "bar", "cornerRadiusEnd": 2},
             "encoding": {
                 "x": {
                     "field": "divergingRate",
@@ -314,7 +348,8 @@ const protectionSpec = {
                     "field": "epbcStatus",
                     "type": "nominal",
                     "title": null,
-                    "sort": ["Critically Endangered", "Endangered", "Vulnerable", "Extinct"]
+                    "sort": ["Vulnerable", "Endangered", "Critically Endangered", "Extinct"],
+                    "scale": {"paddingInner": 0.3}
                 },
                 "color": {
                     "field": "type",
@@ -323,7 +358,9 @@ const protectionSpec = {
                         "domain": ["Indigenous Protected", "Non-Indigenous Protected", "Unprotected"],
                         "range": ["#4b5b34", "#a7c957", "#c1121f"]
                     },
-                    "legend": {"title": "Protection Type"}
+                    "legend": {"title": "Protection Type", 
+                        "orient": "bottom"
+                    }
                 },
                 "tooltip": [
                     {"field": "epbcStatus", "type": "nominal", "title": "Threat Level"},
@@ -338,14 +375,17 @@ const protectionSpec = {
         }
     ]
 };
-vegaEmbed('#protection_chartNine', protectionSpec);
+vegaEmbed('#divergingbar_chartTen', divergingbarSpec, {
+    "actions": false,
+    "renderer": "svg"
+});
 
-const stateProtectionSpec = {
+const bivarMapSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 600,
-    "height": 400,
+    "width": "container",
+    "height": 800,
     "projection": {"type": "mercator"},
     "layer": [
         {
@@ -367,7 +407,10 @@ const stateProtectionSpec = {
                     "field": "avgProtectionRate",
                     "type": "quantitative",
                     "scale": {"scheme": "greens"},
-                    "legend": {"title": "Avg Protection Rate (%)"}
+                    "legend": {"title": "Avg Protection Rate (%)",
+                        "orient": "top-right",
+                        "direction": "vertical",
+                    }
                 },
                 "tooltip": [
                     {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
@@ -396,7 +439,10 @@ const stateProtectionSpec = {
             "field": "totalSpecies",
             "type": "quantitative",
             "scale": {"range": [100, 3000]},
-            "legend": {"title": "Threatened Species"}
+            "legend": {"title": "Threatened Species",
+                "orient": "top-right",
+                "direction": "vertical",
+            }
         },
         "tooltip": [
             {"field": "state", "type": "nominal", "title": "State"},
@@ -408,4 +454,4 @@ const stateProtectionSpec = {
     ]
 };
 
-vegaEmbed('#correlation_chartTen', stateProtectionSpec);
+vegaEmbed('#bivarMap_chartEleven', bivarMapSpec);

@@ -231,6 +231,17 @@ print(stacked_df)
 stacked_df.to_csv('protection_stacked.csv', index=False)
 print('\nSaved to protection_stacked.csv')
 
+# Calculate total protection rate across all threat levels
+total_records = prot_grouped['totalRecords'].sum()
+total_protected = prot_grouped['protectedRecords'].sum()
+total_unprotected = total_records - total_protected
+
+total_protection_rate = round((total_protected / total_records) * 100, 1)
+total_unprotected_rate = round(100 - total_protection_rate, 1)
+
+print(f"Total Protected: {total_protection_rate}%")
+print(f"Total Unprotected: {total_unprotected_rate}%")
+
 #process data for a correlation chart on ehwther protected areas are working
 # Map IBRA regions to states
 ibra_to_state = {

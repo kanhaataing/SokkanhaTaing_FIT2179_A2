@@ -127,14 +127,9 @@
 
             <div>
                 <h3>Threatened Species Over Time</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%;">
-                    <div id="area_birds"></div>
-                    <div id="area_mammals"></div>
-                    <div id="area_rayfinned"></div>
-                    <div id="area_reptiles"></div>
-                </div>
+
                 <div id="area_legend">
-                    <p>Threat Level</p>
+                    <p>Threat Level<span id="legend_hint"> (click a box to filter)</span></p>
                     <div class="legend_item">
                         <div class="legend_box" id="vulnerable_box"></div>
                         <span>Vulnerable</span>
@@ -148,6 +143,31 @@
                         <span>Critically Endangered</span>
                     </div>
                 </div>
+
+                <div class="area_grid">
+                    <div>
+                        <div id="area_birds"></div>
+                        <p class="chart_insight">Bird threatened species have risen sharply since 2020, with critically endangered listings nearly doubling</p>
+                    </div>
+
+                    <div>
+                        <div id="area_mammals"></div>
+                        <p class="chart_insight">Mammal listings dropped significantly around 2005–2015, but have surged since 2020, with endangered and critically 
+                            endangered categories driving most of the increase.</p>
+                    </div>
+
+                    <div>
+                        <div id="area_rayfinned"></div>
+                        <p class="chart_insight">Ray-finned fish show the most dramatic recent spike, with critically endangered species appearing prominently after 2022</p>
+                    </div>
+
+                    <div>
+                        <div id="area_reptiles"></div>
+                        <p class="chart_insight">Reptile threatened species remained relatively stable until 2020, after which all three threat categories rose steeply, 
+                            pointing to compounding pressures in recent years.</p>
+                    </div>
+                </div>
+
             </div>
 
             <h2 id="subheadingThree"> WHY IS IT HAPPENING </h2>
@@ -164,24 +184,64 @@
 
             <div>
                 <h3>Rise of Introduced and Invasive Species</h3>
-                <div id="filter_buttons">
-                    <button class="filter_btn active" onclick="updateChart('both')">Both</button>
-                    <button class="filter_btn" onclick="updateChart('Terrestrial')">Land</button>
-                    <button class="filter_btn" onclick="updateChart('Marine')">Marine</button>
+                <div class="linechart_row">
+                    <div>
+                        <div id="filter_buttons">
+                                <button class="filter_btn active" onclick="updateChart('both')">Both</button>
+                                <button class="filter_btn" onclick="updateChart('Terrestrial')">Land</button>
+                                <button class="filter_btn" onclick="updateChart('Marine')">Marine</button>
+                        </div>
+                        <div id="line_chartNine"></div>
+                    </div>  
+                    <div class="linechart_text">
+                        <p class="linechart_summary">Since 1971, invasive species on Australian land have grown by over 153% — and show no signs of slowing down.</p>
+                        <p class="linechart_desc">This chart tracks the percentage growth of introduced and invasive species across both land and marine environments since 1971. Use the buttons to explore each environment separately.</p>
+                        
+                        <div class="key_stats">
+                            <div class="key_stat_item">
+                                <h2 class="stat_number">153%</h2>
+                                <p class="stat_label">Growth in terrestrial invasive species since 1971</p>
+                            </div>
+                            <div class="key_stat_item">
+                                <h2 class="stat_number">85%</h2>
+                                <p class="stat_label">Growth in terrestrial introduced species since 1971</p>
+                            </div>
+                        </div>
+
+                        <p class="div_chart_desc">Introduced species are brought to Australia by human activity. When they spread uncontrollably, they become invasive, competing with native species for food and habitat, and driving many toward extinction.</p>
+
+            
+                    </div>
                 </div>
-                <div id="terrestrial_chartEight"></div>
             </div>
 
             <h2 id="subheadingFour"> WHAT CAN WE DO?</h2>
 
             <div>
                 <h3>Protection Rate by Threat Level</h3>
-                <div id = "protection_chartNine" ></div>
+                <div class="diverging_chart_row">
+                    <div class="diverging_chart_text">
+                        <p class="div_chart_summary">Crtically Endangered species remain the least protected, despite facing the hgihest risk of extinction. </p>
+                        <p class="div_chart_desc">This chart is modelled to understand whether Australia's protected area system is prioritising the species that
+                            need it most. By comparing protection rates across threat levels, we can assess the effctiveness of current conservation policy </p>
+                        <p class="div_chart_desc"> The results reveal a troubling pattern where Critically Endangered species have the lowest protection rate at just 24%, while
+                            Extinct species ironically show the highest. </p>
+                        <p class="mini_bar_desc"><strong>Overall Protection Rate Across all Threatened Species</strong></p>
+                        <div class="mini_bar">
+                            <div class="protected_bar">30.4% Protected</div>
+                            <div class="unprotected_bar">69.6% Unprotected</div>
+                        </div>
+                        </div>
+                    <div class="vertical_divider"></div>
+                    <div id = "divergingbar_chartTen" ></div>
+                </div>
             </div>
 
             <div>
                 <h3>Are Protected Areas Working?</h3>
-                <div id="correlation_chartTen"></div>
+                <p class="bivarMap_summary">States with the most threatened species are often the least protected.</p>
+                <p class="bivarMap_desc">This map shows the average protection rate per state alongside the total number of threatened species. Darker green indicates higher protection, while larger circles indicate more threatened species.</p>
+                <div id="bivarMap_chartEleven"></div>
             </div>
         </div>
 
