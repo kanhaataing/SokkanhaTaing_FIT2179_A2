@@ -66,11 +66,18 @@
                 </div>
 
             <div>
-                <h3> Proportion of Species by Threat Level</h3>
-                <div class="chart_text_row" id="waffle_chart_row">
+                <h3> Proportion of Species by Threat Level </h3>
+                <div id="waffle_chart_row">
                     <div id="waffle_chartTwo"></div>
-                    <p class="chart_description">Each square represents 1% of Australia's threatened species. Nearly half are Endangered or Critically Endangered, 
-                        with <strong>102 species already lost forever.</strong></p>
+                    <div class="waffle_text_container">
+                        <p class="chart_summary">Nearly half of Australian Species are Endangered or Critically Endangered, with <strong>102 species already lost forever.</strong></p>
+                        <p class="chart_description">This chart is included to understand the severity of Australia's biodiversity crisis at a glance.
+                            Each square represents 1% of all species listed under the EPBC Act, allowing us to visually grasp the proportion of species at each level of threat.</p>
+                        <p class="chart_description"> The results show that the majority of Australia's threatened species fall under the Endangered
+                            and Vulnerable categories, reflecting a widespread and escalating crisis. Most alarming is the presence of Critically Endangered
+                            and Extinct species, highlighting that for many, the window for intervention is repidly closing or has already passed.</p>
+                        <p class="chart_description">This breakdown is essential for understanding not just how many species are at risk, but how urgently conservation action is needed across different threat levels.</p>
+                    </div>
                 </div>
             </div>
 
@@ -103,7 +110,7 @@
 
             <div>
                 <h3>Theatened Species by Taxonomic Group</h3>
-                <div class="chart_text_row" style="align-items: center;">
+                <div class="barchart_text_row">
                     <div id="bargraph_chartThree"></div>
                     <div class="bar_summary">
                         <h4>Most Threatened Animal Groups</h4>
@@ -116,11 +123,6 @@
                             threatened animal species.</p>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <h3>Where Are Threatened Species Monitored?</h3>
-                <div id="dotmap_chartSix" ></div>
             </div>
 
             <div>
@@ -152,7 +154,12 @@
 
             <div>
                 <h3>Top Threat Causes and Proportion Affected</h3>
-                <div id="lollipop_chartSeven" ></div>
+                <p class="lollipop_chart_summary"><strong>Invasive species</strong> remain the single greatest threat to Australia's Wildlife, 
+                    affecting more than three quarters of all threatened species.</p>
+                <p class="lollipop_chart_desc">This chart is included to understand the key pressures driving Australia's biodiversity crisis. Each dot represents
+                    a specific threat category, positioned by the proportion of EPBC-listed species it affects. </p>
+                <p class ="lollipop_chart_desc">The result reveal that <strong>invasive species</strong> significantly dominate at <strong>78.4%</strong>.</p>
+                <div id="lollipop_chartEight" ></div>
             </div>
 
             <div>
@@ -169,10 +176,12 @@
 
             <div>
                 <h3>Protection Rate by Threat Level</h3>
+                <div id = "protection_chartNine" ></div>
             </div>
 
             <div>
                 <h3>Are Protected Areas Working?</h3>
+                <div id="correlation_chartTen"></div>
             </div>
         </div>
 

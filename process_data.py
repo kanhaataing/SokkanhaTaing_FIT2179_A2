@@ -87,8 +87,12 @@ taxon_df = taxon_df[taxon_df['threatLevel'].notna()]
 taxon_counts_group = taxon_df.groupby('taxonGroup').size().reset_index(name='count')
 taxon_counts_group = taxon_counts_group.sort_values('count', ascending=False)
 
+taxon_counts_group['taxonGroup'] = taxon_counts_group['taxonGroup'].replace(
+    'crabs, lobsters, shrimps, woodlice', 'Crustaceans'
+)
+
 animal_groups = ['birds', 'mammals', 'reptiles', 'frogs', 'insects', 
-                 'ray-finned fishes', 'sharks', 'crabs, lobsters, shrimps, woodlice']
+                 'ray-finned fishes', 'sharks', 'Crustaceans']
 taxon_counts_group = taxon_counts_group[taxon_counts_group['taxonGroup'].isin(animal_groups)]
 
 print(taxon_counts_group)
@@ -194,3 +198,142 @@ combined['pct_growth'] = combined.groupby('category')['speciesCount'].transform(
 print(combined.head(20))
 combined.to_csv('combined_introduced.csv', index=False)
 print('\nSaved to combined_introduced.csv')
+
+# process protection rate by threat level data
+protection = pd.read_csv('ProtectionStatusAustralianTerrestrialSpeciesOccurrences.csv')
+
+relevant = ['Vulnerable', 'Endangered', 'Critically Endangered', 'Extinct']
+protection = protection[protection['epbcStatus'].isin(relevant)]
+
+prot_grouped = protection.groupby('epbcStatus').agg(
+    totalRecords=('recordCount', 'sum'),
+    protectedRecords=('protectedRecordCount', 'sum')
+).reset_index()
+
+prot_grouped = protection.groupby('epbcStatus').agg(
+    totalRecords=('recordCount', 'sum'),
+    protectedRecords=('protectedRecordCount', 'sum'),
+    indigenousRecords=('indigenousProtectedRecordCount', 'sum')
+).reset_index()
+
+prot_grouped['protectionRate'] = (prot_grouped['protectedRecords'] / prot_grouped['totalRecords'] * 100).round(2)
+prot_grouped['indigenousRate'] = (prot_grouped['indigenousRecords'] / prot_grouped['totalRecords'] * 100).round(2)
+prot_grouped['nonIndigenousRate'] = (prot_grouped['protectionRate'] - prot_grouped['indigenousRate']).round(2)
+
+stacked_rows = []
+for _, row in prot_grouped.iterrows():
+    stacked_rows.append({'epbcStatus': row['epbcStatus'], 'type': 'Indigenous Protected', 'rate': row['indigenousRate']})
+    stacked_rows.append({'epbcStatus': row['epbcStatus'], 'type': 'Non-Indigenous Protected', 'rate': row['nonIndigenousRate']})
+    stacked_rows.append({'epbcStatus': row['epbcStatus'], 'type': 'Unprotected', 'rate': round(100 - row['protectionRate'], 2)})
+
+stacked_df = pd.DataFrame(stacked_rows)
+print(stacked_df)
+stacked_df.to_csv('protection_stacked.csv', index=False)
+print('\nSaved to protection_stacked.csv')
+
+#process data for a correlation chart on ehwther protected areas are working
+# Map IBRA regions to states
+ibra_to_state = {
+    'Arnhem Coast': 'Northern Territory',
+    'Arnhem Plateau': 'Northern Territory',
+    'Australian Alps': 'New South Wales',
+    'Avon Wheatbelt': 'Western Australia',
+    'Ben Lomond': 'Tasmania',
+    'Brigalow Belt North': 'Queensland',
+    'Brigalow Belt South': 'Queensland',
+    'Broken Hill Complex': 'New South Wales',
+    'Burt Plain': 'Northern Territory',
+    'Cape York Peninsula': 'Queensland',
+    'Carnarvon': 'Western Australia',
+    'Central Arnhem': 'Northern Territory',
+    'Central Kimberley': 'Western Australia',
+    'Central Mackay Coast': 'Queensland',
+    'Central Ranges': 'Northern Territory',
+    'Channel Country': 'Queensland',
+    'Cobar Peneplain': 'New South Wales',
+    'Coolgardie': 'Western Australia',
+    'Coral Sea': 'Queensland',
+    'Daly Basin': 'Northern Territory',
+    'Dampierland': 'Western Australia',
+    'Darling Riverine Plains': 'New South Wales',
+    'Darwin Coastal': 'Northern Territory',
+    'Davenport Murchison Ranges': 'Northern Territory',
+    'Desert Uplands': 'Queensland',
+    'Einasleigh Uplands': 'Queensland',
+    'Esperance Plains': 'Western Australia',
+    'Eyre Yorke Block': 'South Australia',
+    'Finke': 'Northern Territory',
+    'Flinders Lofty Block': 'South Australia',
+    'Furneaux': 'Tasmania',
+    'Gascoyne': 'Western Australia',
+    'Gawler': 'South Australia',
+    'Geraldton Sandplains': 'Western Australia',
+    'Gibson Desert': 'Western Australia',
+    'Great Sandy Desert': 'Western Australia',
+    'Great Victoria Desert': 'Western Australia',
+    'Gulf Coastal': 'Queensland',
+    'Gulf Fall and Uplands': 'Queensland',
+    'Gulf Plains': 'Queensland',
+    'Hampton': 'South Australia',
+    'Indian Tropical Islands': 'Western Australia',
+    'Jarrah Forest': 'Western Australia',
+    'Kanmantoo': 'South Australia',
+    'King': 'Tasmania',
+    'Little Sandy Desert': 'Western Australia',
+    'MacDonnell Ranges': 'Northern Territory',
+    'Mallee': 'Victoria',
+    'Mitchell Grass Downs': 'Queensland',
+    'Mount Isa Inlier': 'Queensland',
+    'Mulga Lands': 'Queensland',
+    'Murchison': 'Western Australia',
+    'Murray Darling Depression': 'New South Wales',
+    'NSW North Coast': 'New South Wales',
+    'NSW South Western Slopes': 'New South Wales',
+    'Nandewar': 'New South Wales',
+    'Naracoorte Coastal Plain': 'South Australia',
+    'New England Tablelands': 'New South Wales',
+    'Northern Kimberley': 'Western Australia',
+    'Nullarbor': 'South Australia',
+    'Ord Victoria Plain': 'Western Australia',
+    'Pacific Subtropical Islands': 'Queensland',
+    'Pilbara': 'Western Australia',
+    'Pine Creek': 'Northern Territory',
+    'Riverina': 'New South Wales',
+    'Simpson Strzelecki Dunefields': 'South Australia',
+    'South East Coastal Plain': 'Victoria',
+    'South East Corner': 'New South Wales',
+    'South Eastern Highlands': 'New South Wales',
+    'South Eastern Queensland': 'Queensland',
+    'Southern Volcanic Plain': 'Victoria',
+    'Stony Plains': 'South Australia',
+    'Sturt Plateau': 'Northern Territory',
+    'Subantarctic Islands': 'Tasmania',
+    'Swan Coastal Plain': 'Western Australia',
+    'Sydney Basin': 'New South Wales',
+    'Tanami': 'Northern Territory',
+    'Tasmanian Central Highlands': 'Tasmania',
+    'Tasmanian Northern Midlands': 'Tasmania',
+    'Tasmanian Northern Slopes': 'Tasmania',
+    'Tasmanian South East': 'Tasmania',
+    'Tasmanian Southern Ranges': 'Tasmania',
+    'Tasmanian West': 'Tasmania',
+    'Tiwi Cobourg': 'Northern Territory',
+    'Victoria Bonaparte': 'Western Australia',
+    'Victorian Midlands': 'Victoria',
+    'Warren': 'Western Australia',
+    'Wet Tropics': 'Queensland',
+    'Yalgoo': 'Western Australia'
+}
+
+protection_corr = pd.read_csv('protection_correlation.csv')
+protection_corr['state'] = protection_corr['ibraRegion'].map(ibra_to_state)
+protection_corr = protection_corr.dropna(subset=['state'])
+
+state_protection = protection_corr.groupby('state').agg(
+    avgProtectionRate=('protectionRate', 'mean'),
+    totalSpecies=('speciesCount', 'sum')
+).reset_index().round(2)
+
+print(state_protection)
+state_protection.to_csv('state_protection.csv', index=False)
+print('\nSaved to state_protection.csv!')

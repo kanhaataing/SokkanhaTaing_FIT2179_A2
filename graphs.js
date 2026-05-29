@@ -67,8 +67,8 @@ const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 750,
-    "height": 500,
+    "width": "container",
+    "height": 400,
     "data": {"url": "waffle_data.csv"},
     "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
     "encoding": {
@@ -100,16 +100,19 @@ const waffleSpec = {
     }
 };
 
-vegaEmbed('#waffle_chartTwo', waffleSpec);
+vegaEmbed('#waffle_chartTwo', waffleSpec, {
+    "actions": false,
+    "renderer": "svg"
+});
 
 const barChartSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 400,
-    "height": 300,
+    "width": "container",
+    "height": 350,
     "data": {"url": "taxon_group_counts.csv"},
-    "mark": {"type": "bar", "cornerRadiusEnd": 4},
+    "mark": {"type": "bar", "cornerRadiusEnd": 2},
     "encoding": {
         "y": {
             "field": "taxonGroup",
@@ -127,7 +130,7 @@ const barChartSpec = {
             "field": "taxonGroup",
             "type": "nominal",
             "scale": {
-                "domain": ["birds", "mammals", "reptiles", "ray-finned fishes", "frogs", "crabs, lobsters, shrimps, woodlice", "insects", "sharks"],
+                "domain": ["birds", "mammals", "reptiles", "ray-finned fishes", "frogs", "Crustaceans", "insects", "sharks"],
                 "range": ["#7fc7cc", "#af5031", "#4b5b34", "#092f33", "#ea8913", "#e9c46a", "#fdaba5", "#980204"]
             },
             "legend": null
@@ -139,63 +142,9 @@ const barChartSpec = {
     }
 };
 
-vegaEmbed('#bargraph_chartThree', barChartSpec);
+vegaEmbed('#bargraph_chartThree', barChartSpec, {"actions": false});
 
 
-const dotMapSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "",
-    "background": "transparent",
-    "width": 1500,
-    "height": 1000,
-    "projection": {"type": "mercator"},
-    "layer": [
-        {
-            "data": {
-                "url": "australia-states.json",
-                "format": {"type": "json", "property": "features"}
-            },
-            "mark": {
-                "type": "geoshape",
-                "fill": "#e8e8e8",
-                "stroke": "white",
-                "strokeWidth": 1
-            }
-        },
-        {
-            "data": {"url": "dot_map.csv"},
-            "mark": {
-                "type": "circle",
-                "opacity": 0.6,
-                "size": 100
-            },
-            "encoding": {
-                "longitude": {"field": "longitude", "type": "quantitative"},
-                "latitude": {"field": "latitude", "type": "quantitative"},
-                "color": {
-                    "field": "taxonomicGroup",
-                    "type": "nominal",
-                    "scale": {
-                        "domain": ["Birds", "Mammals", "Amphibians", "Plants"],
-                        "range": ["#084463", "#8c0902", "#e6a341", "#628b33"]
-                    },
-                    "legend": {
-                        "title": "Taxonomic Group",
-                        "orient": "bottom"
-                    }
-                },
-                "tooltip": [
-                    {"field": "taxonomicGroup", "type": "nominal", "title": "Group"},
-                    {"field": "epbcStatus", "type": "nominal", "title": "Status"},
-                    {"field": "latitude", "type": "quantitative", "title": "Latitude"},
-                    {"field": "longitude", "type": "quantitative", "title": "Longitude"}
-                ]
-            }
-        }
-    ]
-};
-
-vegaEmbed('#dotmap_chartSix', dotMapSpec);
 
 function makeAreaSpec(group) {
     return {
@@ -248,7 +197,7 @@ const lollipopSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "",
     "background": "transparent",
-    "width": 600,
+    "width": "container",
     "height": 400,
     "data": {"url": "soe2016biopressures-affecting-epbc-listed-species.csv"},
     "transform": [
@@ -277,7 +226,7 @@ const lollipopSpec = {
     ]
 };
 
-vegaEmbed('#lollipop_chartSeven', lollipopSpec);
+vegaEmbed('#lollipop_chartEight', lollipopSpec);
 
 function drawCombinedChart(environment) {
     const filterExpr = environment === 'both' 
@@ -337,3 +286,126 @@ function updateChart(environment) {
     
     drawCombinedChart(environment);
 }
+
+const protectionSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "",
+    "background": "transparent",
+    "width": 500,
+    "height": 300,
+    "data": {"url": "protection_stacked.csv"},
+    "transform": [
+        {
+            "calculate": "datum.type === 'Unprotected' ? -datum.rate : datum.rate",
+            "as": "divergingRate"
+        }
+    ],
+    "layer": [
+        {
+            "mark": {"type": "bar", "cornerRadiusEnd": 4},
+            "encoding": {
+                "x": {
+                    "field": "divergingRate",
+                    "type": "quantitative",
+                    "title": "← Unprotected | Protected →",
+                    "axis": {"format": ".0f", "labelExpr": "abs(datum.value)"}
+                },
+                "y": {
+                    "field": "epbcStatus",
+                    "type": "nominal",
+                    "title": null,
+                    "sort": ["Critically Endangered", "Endangered", "Vulnerable", "Extinct"]
+                },
+                "color": {
+                    "field": "type",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": ["Indigenous Protected", "Non-Indigenous Protected", "Unprotected"],
+                        "range": ["#4b5b34", "#a7c957", "#c1121f"]
+                    },
+                    "legend": {"title": "Protection Type"}
+                },
+                "tooltip": [
+                    {"field": "epbcStatus", "type": "nominal", "title": "Threat Level"},
+                    {"field": "type", "type": "nominal", "title": "Protection Type"},
+                    {"field": "rate", "type": "quantitative", "title": "Proportion (%)", "format": ".2f"}
+                ]
+            }
+        },
+        {
+            "mark": {"type": "rule", "color": "#403931", "strokeWidth": 1.5},
+            "encoding": {"x": {"datum": 0}}
+        }
+    ]
+};
+vegaEmbed('#protection_chartNine', protectionSpec);
+
+const stateProtectionSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "",
+    "background": "transparent",
+    "width": 600,
+    "height": 400,
+    "projection": {"type": "mercator"},
+    "layer": [
+        {
+            "data": {
+                "url": "australia-states.json",
+                "format": {"type": "json", "property": "features"}
+            },
+            "transform": [{
+                "lookup": "properties.STATE_NAME",
+                "from": {
+                    "data": {"url": "state_protection.csv"},
+                    "key": "state",
+                    "fields": ["avgProtectionRate", "totalSpecies"]
+                }
+            }],
+            "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
+            "encoding": {
+                "color": {
+                    "field": "avgProtectionRate",
+                    "type": "quantitative",
+                    "scale": {"scheme": "greens"},
+                    "legend": {"title": "Avg Protection Rate (%)"}
+                },
+                "tooltip": [
+                    {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+                    {"field": "avgProtectionRate", "type": "quantitative", "title": "Avg Protection Rate (%)", "format": ".1f"},
+                    {"field": "totalSpecies", "type": "quantitative", "title": "Total Threatened Species"}
+                ]
+            }
+        },
+        {
+    "data": {
+        "values": [
+            {"state": "New South Wales", "lat": -32.5, "lon": 146.5, "totalSpecies": 1602, "avgProtectionRate": 29.73},
+            {"state": "Victoria", "lat": -37.0, "lon": 144.0, "totalSpecies": 439, "avgProtectionRate": 17.59},
+            {"state": "Queensland", "lat": -22.0, "lon": 144.0, "totalSpecies": 999, "avgProtectionRate": 38.92},
+            {"state": "South Australia", "lat": -30.0, "lon": 135.0, "totalSpecies": 443, "avgProtectionRate": 29.27},
+            {"state": "Western Australia", "lat": -25.0, "lon": 121.0, "totalSpecies": 817, "avgProtectionRate": 41.56},
+            {"state": "Tasmania", "lat": -42.0, "lon": 146.5, "totalSpecies": 485, "avgProtectionRate": 46.31},
+            {"state": "Northern Territory", "lat": -19.0, "lon": 133.0, "totalSpecies": 247, "avgProtectionRate": 40.76}
+        ]
+    },
+    "mark": {"type": "circle", "opacity": 0.6, "color": "#c1121f"},
+    "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+            "field": "totalSpecies",
+            "type": "quantitative",
+            "scale": {"range": [100, 3000]},
+            "legend": {"title": "Threatened Species"}
+        },
+        "tooltip": [
+            {"field": "state", "type": "nominal", "title": "State"},
+            {"field": "avgProtectionRate", "type": "quantitative", "title": "Protection Rate (%)", "format": ".1f"},
+            {"field": "totalSpecies", "type": "quantitative", "title": "Threatened Species"}
+        ]
+    }
+}
+    ]
+};
+
+vegaEmbed('#correlation_chartTen', stateProtectionSpec);

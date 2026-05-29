@@ -1,7 +1,7 @@
 body {
     background-color: #fffdee;
     margin: 0;
-    padding: 70px 150px;
+    padding: 70px 170px;
     box-sizing: border-box;
     width: 100vw;
     overflow-x: hidden;
@@ -21,6 +21,8 @@ body {
     border-top: 2px solid #403931;
     padding-top: 20px;
 }
+
+/* Introduction of the project */
 
 .intro_row {
     display: grid;
@@ -46,6 +48,41 @@ body {
     align-self: center;
 }
 
+/* Standard laptop */
+@media (max-width: 1600px) {
+    .intro_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    #wombat_image {
+        height: 350px !important;
+        max-height: 350px;
+    }
+
+    #intro_text {
+        font-size: 18px;
+    }
+}
+
+/* Large monitor */
+@media (min-width: 1600px) {
+    .intro_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+
+    #wombat_image {
+        height: 450px;
+    }
+
+    #intro_text {
+        font-size: 18px;
+    }
+}
+
+
+/* subheadings layout*/
 #subheadingOne {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 30px;
@@ -103,6 +140,7 @@ h3{
     color: #403031;
 }
 
+/* the callout numbers design layout*/
 #callouts {
     display: flex;
     justify-content: center;
@@ -131,6 +169,199 @@ h3{
     letter-spacing: 2px;
 }
 
+@media (min-width: 1600px) {
+    #callouts {
+        gap: 180px;
+    }
+}
+
+
+/* Proportion of Species by Threat Level Waffle chart layout*/
+#waffle_chart_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+.waffle_text_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-right: 20px;
+    align-self: flex-start;
+    padding-top: 2px; 
+}
+
+.chart_summary {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #403931;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    padding-left: 30px;
+    text-align: justify;
+    margin-top: 5px;
+}
+
+.chart_description {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-align: justify;
+    padding-left: 30px; 
+    margin-top: 2px;
+    margin-bottom: 5px;;
+}
+
+/* Standard laptop */
+@media (max-width: 1600px) {
+    .chart_text_row,
+    #waffle_chart_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    #waffle_chartTwo {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    #waffle_chart_row .chart_description {
+        padding-left: 30px;
+    }
+
+}
+/* Large monitor */
+@media (min-width: 1600px) {
+    .chart_text_row,
+    #waffle_chart_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+}
+
+
+
+/* Threatened species by taxonomic group bar chart design layout*/
+
+.bar_summary {
+    min-width: 200px;
+    padding: 20px;
+    border-left: 1.5px solid #403931;
+}
+
+.bar_summary h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    color: #403931;
+    margin-bottom: 15px;
+    margin-left: 50px;
+}
+
+.summary_list {
+    list-style: decimal;
+    padding-left: 20px;
+    margin-left: 50px;
+}
+
+.summary_list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    font-family: Georgia, serif;
+    font-size: 13px;
+
+}
+
+.summary_group {
+    color: #403931;
+    font-weight: bold;
+}
+
+.summary_count {
+    color: #c1121f;
+    font-weight: bold;
+}
+
+.bar_chart_desc {
+    margin-left: 50px;
+}
+
+.barchart_text_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+#bargraph_chartThree {
+    width: 100%;
+    margin-top: 40px;
+}
+
+/* Standard laptop */
+@media (max-width: 1600px) {
+    .barchart_text_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    #bargraph_chartThree {
+        width: 550px;
+        max-width: 550px;
+    }
+}
+
+/* Large monitor */
+@media (min-width: 1600px) {
+    .barchart_text_row {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+    #bargraph_chartThree {
+        width: 100%;
+        min-width: 600px;
+    }
+}
+
+
+/* Top Threat casues and proportion affected lollipop chart design layout */
+
+#lollipop_chartEight {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.lollipop_chart_summary {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #403931;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.lollipop_chart_desc {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-align: justify;
+    line-height: 1.8;
+    color: #403931;
+    margin-bottom: 5px;
+}
+
+
+
+
 #area_legend p {
     font-weight: bold;
     margin-bottom: 10px;
@@ -156,12 +387,7 @@ h3{
 #critical_box { background-color: #590202; }
 
 
-.waffle_chart_desc {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
-    text-align: justify;
-    
-}
+
 
 .map_container {
     position: relative;
@@ -217,63 +443,6 @@ h3{
     gap: 40px;
 }
 
-.bar_summary {
-    min-width: 200px;
-    padding: 20px;
-    border-left: 1.5px solid #403931;
-}
-
-.bar_summary h4 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 18px;
-    color: #403931;
-    margin-bottom: 15px;
-    margin-left: 50px;
-}
-
-.summary_list {
-    list-style: decimal;
-    padding-left: 20px;
-    margin-left: 50px;
-}
-
-.summary_list li {
-    display: flex;
-    justify-content: space-between;
-    gap: 100px;
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
-    font-family: Georgia, serif;
-    font-size: 13px;
-
-}
-
-.summary_group {
-    color: #403931;
-    font-weight: bold;
-}
-
-.summary_count {
-    color: #c1121f;
-    font-weight: bold;
-}
-
-.bar_chart_desc {
-    margin-left: 50px;
-}
-
-#waffle_chart_row {
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.chart_description {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
-    text-align: justify;
-}
-
-
 #filter_buttons {
     display: flex;
     gap: 10px;
@@ -295,5 +464,4 @@ h3{
     background-color: #403931;
     color: #fffdee;
 }
-
 

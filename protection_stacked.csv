@@ -1,0 +1,13 @@
+epbcStatus,type,rate
+Critically Endangered,Indigenous Protected,0.4
+Critically Endangered,Non-Indigenous Protected,23.76
+Critically Endangered,Unprotected,75.84
+Endangered,Indigenous Protected,2.75
+Endangered,Non-Indigenous Protected,34.96
+Endangered,Unprotected,62.29
+Extinct,Indigenous Protected,2.57
+Extinct,Non-Indigenous Protected,40.0
+Extinct,Unprotected,57.43
+Vulnerable,Indigenous Protected,0.65
+Vulnerable,Non-Indigenous Protected,26.62
+Vulnerable,Unprotected,72.73
