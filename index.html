@@ -103,6 +103,51 @@
                         <p><strong>Western Australia</strong><br>617 species — second highest despite remote location</p>
                     </div>
                 </div>
+                <div class="map_bottom_row">
+                    <div class="map_description">
+                        <p class="chart_description">New South Wales leads with 761 threatened species — nearly 200 more than any other state. Despite its vast size, the Northern Territory records the fewest at just 158, suggesting that human activity and habitat loss drive threat density more than geography alone.</p>
+                        <p class="chart_description">The split between animals and plants varies dramatically by state. Western Australia and the Northern Territory are almost entirely animal-dominated (90%+), while New South Wales and Victoria have a far more balanced mix, with plants making up nearly half of all threatened species.</p>
+                        <p class="chart_description">Click any state on the map to explore its breakdown.</p>
+                    </div>
+
+                    <div id="state-modal">
+                        <p id="panel-state-name" class="panel-title">Select a state</p>
+                        <span id="panel-total" class="panel-total">Click any state on the map</span>
+
+                        <div class="pill-track">
+                            <div id="pill-animal" class="pill-animal" style="width: 50%;">
+                                <span id="animal-pct"></span>
+                            </div>
+                            <div id="pill-plant" class="pill-plant" style="width: 50%;">
+                                <span id="plant-pct"></span>
+                            </div>
+                        </div>
+
+                        <div class="pill-legend">
+                            <div class="pill-legend-item">
+                                <div class="pill-legend-dot" style="background: #B5D4F4;"></div>
+                                Animals
+                            </div>
+                            <div class="pill-legend-item">
+                                <div class="pill-legend-dot" style="background: #C0DD97;"></div>
+                                Plants
+                            </div>
+                        </div>
+
+                        <div class="kingdom-cards">
+                            <div class="kingdom-card">
+                                <p class="kingdom-label">Animals</p>
+                                <p id="animal-count" class="kingdom-count">—</p>
+                                <p id="animal-top" class="kingdom-top"></p>
+                            </div>
+                            <div class="kingdom-card">
+                                <p class="kingdom-label">Plants</p>
+                                <p id="plant-count" class="kingdom-count">—</p>
+                                <p id="plant-top" class="kingdom-top"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <h2 id="subheadingTwo"> WHO IS DISAPPEARING?</h2>
@@ -177,9 +222,28 @@
                 <p class="lollipop_chart_summary"><strong>Invasive species</strong> remain the single greatest threat to Australia's Wildlife, 
                     affecting more than three quarters of all threatened species.</p>
                 <p class="lollipop_chart_desc">This chart is included to understand the key pressures driving Australia's biodiversity crisis. Each dot represents
-                    a specific threat category, positioned by the proportion of EPBC-listed species it affects. </p>
-                <p class ="lollipop_chart_desc">The result reveal that <strong>invasive species</strong> significantly dominate at <strong>78.4%</strong>.</p>
-                <div id="lollipop_chartEight" ></div>
+                    a specific threat category, positioned by the proportion of EPBC-listed species it affects.</p>
+                <p class="lollipop_chart_desc">The result reveal that <strong>invasive species</strong> significantly dominate at <strong>78.4%</strong>.</p>
+
+                <div class="lollipop_container">
+                    <div id="lollipop_chartEight"></div>
+
+                    <div class="lollipop_annotation" id="invasive_annotation">
+                        <p><strong>78.4%</strong> — Invasive species is the dominant threat by a large margin, affecting nearly 4 in 5 threatened species</p>
+                    </div>
+
+                    <div class="lollipop_annotation" id="fire_annotation">
+                        <p><strong>Fire & climate</strong> — Together these two account for over 90% of species when combined with invasive pressures</p>
+                    </div>
+
+                    <div class="lollipop_annotation" id="climate_annotation">
+                        <p><strong>Climate change</strong> ranks 7th — despite being the fastest growing threat in recent years</p>
+                    </div>
+
+                    <div class="lollipop_annotation" id="cluster_annotation">
+                        <p>A <strong>cluster of threats</strong> between 28–35% suggests many species face multiple simultaneous pressures</p>
+                    </div>
+                </div>
             </div>
 
             <div>
@@ -241,10 +305,27 @@
                 <h3>Are Protected Areas Working?</h3>
                 <p class="bivarMap_summary">States with the most threatened species are often the least protected.</p>
                 <p class="bivarMap_desc">This map shows the average protection rate per state alongside the total number of threatened species. Darker green indicates higher protection, while larger circles indicate more threatened species.</p>
-                <div id="bivarMap_chartEleven"></div>
-            </div>
-        </div>
 
+                <div class="protection_container">
+                    <div id="bivarMap_chartEleven"></div>
+
+                    <div class="protection_annotation" id="nsw_vic_annotation">
+                        <p><strong>NSW & VIC</strong> — the least protected states (17–29%) yet home to over 2,000 threatened species combined</p>
+                    </div>
+
+                    <div class="protection_annotation" id="nt_wa_annotation">
+                        <p><strong>WA & NT</strong> — protection rates above 40% offer a stronger buffer, though WA still records 817 threatened species</p>
+                    </div>
+
+                    <div class="protection_annotation" id="tas_annotation">
+                        <p><strong>TAS</strong> — highest protection rate at 46%, yet 485 species remain threatened</p>
+                    </div>
+
+                    <div class="protection_annotation" id="qld_annotation_two">
+                        <p><strong>QLD</strong> — 999 threatened species at 38.9% protection, partially buffered but still under significant pressure</p>
+                    </div>
+                </div>
+            </div>
         <script src="graphs.js"></script>
     </body>
 </html>

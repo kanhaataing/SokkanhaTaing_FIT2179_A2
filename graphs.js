@@ -1,67 +1,126 @@
-const choroplethSpec = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "title": "",
-        background: "transparent",
-        "width": "container",
-        "height": 800,
-        "projection": {"type": "mercator"},
-        "layer": [
-            {
-                "data": {
-                    "url": "australia-states.json",
-                    "format": {"type": "json", "property": "features"}
-                },
-                "transform": [{
-                    "lookup": "properties.STATE_NAME",
-                    "from": {
-                        "data": {"url": "threat_by_state.csv"},
-                        "key": "state",
-                        "fields": ["threatCount"]
-                    }
-                }],
-                "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
-                "encoding": {
-                    "color": {
-                        "field": "threatCount",
-                        "type": "quantitative",
-                        "scale": {"scheme": "reds"},
-                        "legend": {"title": "Threatened Species",
-                            "orient": "bottom"
-                        }
-                    },
-                    "tooltip": [
-                        {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-                        {"field": "threatCount", "type": "quantitative", "title": "Threatened Species"}
-                    ]
-                }
-            },
-            {
-                "data": {
-                    "values": [
-                        {"state": "NSW", "lat": -32.5, "lon": 146.5},
-                        {"state": "VIC", "lat": -37.0, "lon": 144.0},
-                        {"state": "QLD", "lat": -22.0, "lon": 144.0},
-                        {"state": "SA", "lat": -30.0, "lon": 135.0},
-                        {"state": "WA", "lat": -25.0, "lon": 121.0},
-                        {"state": "TAS", "lat": -42.0, "lon": 146.5},
-                        {"state": "NT", "lat": -19.0, "lon": 133.0},
-                        {"state": "ACT", "lat": -35.5, "lon": 149.0}
-                    ]
-                },
-                "mark": {"type": "text", "fontSize": 10, "fontWeight": "bold", "fill": "white"},
-                "encoding": {
-                    "longitude": {"field": "lon", "type": "quantitative"},
-                    "latitude": {"field": "lat", "type": "quantitative"},
-                    "text": {"field": "state", "type": "nominal"}
-                }
-            }
-        ]
-    };
+const stateData = {
+  'New South Wales':          { total: 315, animal: 173, plant: 142, animalTop: 'Birds (75), Mammals',      plantTop: 'Dicots (106), Monocots (33)' },
+  'Victoria':                 { total: 227, animal: 137, plant: 90,  animalTop: 'Birds (70), Mammals',      plantTop: 'Dicots (51), Monocots (37)'  },
+  'Queensland':               { total: 226, animal: 140, plant: 86,  animalTop: 'Birds (65), Mammals (28)', plantTop: 'Dicots (67), Monocots'        },
+  'Western Australia':        { total: 100, animal: 94,  plant: 6,   animalTop: 'Birds (51), Mammals (22)', plantTop: 'Very few plant species'       },
+  'South Australia':          { total: 164, animal: 109, plant: 55,  animalTop: 'Birds (66), Mammals',      plantTop: 'Monocots (29), Dicots (26)'   },
+  'Tasmania':                 { total: 76,  animal: 63,  plant: 13,  animalTop: 'Birds (47), Mammals (7)',  plantTop: 'Dicots (7), Ferns'            },
+  'Northern Territory':       { total: 79,  animal: 71,  plant: 8,   animalTop: 'Birds (32), Mammals (18)', plantTop: 'Very few plant species'       },
+  'Australian Capital Territory': { total: 45, animal: 30, plant: 15, animalTop: 'Birds, Mammals',         plantTop: 'Dicots, Monocots'             }
+};
 
-        vegaEmbed('#choropleth_chartOne', choroplethSpec, {
-            "actions": false,
-            "renderer": "svg"
-        });
+function showStatePanel(stateName) {
+  const d = stateData[stateName];
+  if (!d) return;
+
+  const animalPct = Math.round(d.animal / (d.animal + d.plant) * 100);
+  const plantPct  = 100 - animalPct;
+
+  document.getElementById('panel-state-name').textContent  = stateName;
+  document.getElementById('panel-total').textContent       = d.total + ' threatened species';
+  document.getElementById('pill-animal').style.width       = animalPct + '%';
+  document.getElementById('pill-plant').style.width        = plantPct  + '%';
+  document.getElementById('animal-pct').textContent        = animalPct + '%';
+  document.getElementById('plant-pct').textContent         = plantPct  + '%';
+  document.getElementById('animal-count').textContent      = d.animal;
+  document.getElementById('plant-count').textContent       = d.plant;
+  document.getElementById('animal-top').textContent        = d.animalTop;
+  document.getElementById('plant-top').textContent         = d.plantTop;
+
+  document.getElementById('state-panel').style.display = 'block';
+}
+
+const choroplethSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "",
+  background: "transparent",
+  "width": "container",
+  "height": 800,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "australia-states.json",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [{
+        "lookup": "properties.STATE_NAME",
+        "from": {
+          "data": {"url": "threat_by_state.csv"},
+          "key": "state",
+          "fields": ["threatCount"]
+        }
+      }],
+      "params": [{
+        "name": "stateClick",
+        "select": {"type": "point", "on": "click", "fields": ["properties.STATE_NAME"]}
+      }],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1, "cursor": "pointer"},
+      "encoding": {
+        "color": {
+          "field": "threatCount",
+          "type": "quantitative",
+          "scale": {"scheme": "reds"},
+          "legend": {"title": "Threatened Species", "orient": "top-right"}
+        },
+        "strokeWidth": {
+          "condition": {"param": "stateClick", "value": 3},
+          "value": 1
+        },
+        "stroke": {
+          "condition": {"param": "stateClick", "value": "white"},
+          "value": "white"
+        },
+        "opacity": {
+          "condition": {"param": "stateClick", "value": 1},
+          "value": 0.75
+        },
+        "tooltip": [
+          {"field": "properties.STATE_NAME", "type": "nominal",     "title": "State"},
+          {"field": "threatCount",           "type": "quantitative", "title": "Threatened Species"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "NSW", "lat": -32.5, "lon": 146.5},
+          {"state": "VIC", "lat": -37.0, "lon": 144.0},
+          {"state": "QLD", "lat": -22.0, "lon": 144.0},
+          {"state": "SA",  "lat": -30.0, "lon": 135.0},
+          {"state": "WA",  "lat": -25.0, "lon": 121.0},
+          {"state": "TAS", "lat": -42.0, "lon": 146.5},
+          {"state": "NT",  "lat": -19.0, "lon": 133.0},
+          {"state": "ACT", "lat": -35.5, "lon": 149.0}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 10, "fontWeight": "bold", "fill": "white"},
+      "encoding": {
+        "longitude": {"field": "lon",   "type": "quantitative"},
+        "latitude":  {"field": "lat",   "type": "quantitative"},
+        "text":      {"field": "state", "type": "nominal"}
+      }
+    }
+  ]
+};
+
+vegaEmbed('#choropleth_chartOne', choroplethSpec, {
+  actions: false,
+  renderer: "svg"
+}).then(({ view }) => {
+  view.addEventListener('click', (event, item) => {
+    if (item && item.datum && item.datum.properties) {
+      const stateName = item.datum.properties.STATE_NAME;
+      showStatePanel(stateName);
+
+      const modal = document.getElementById('state-modal');
+      modal.style.left = event.clientX + 12 + 'px';
+      modal.style.top  = event.clientY + 12 + 'px';
+      modal.style.display = 'block';
+    }
+  });
+});
+
 
 const waffleSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -408,8 +467,8 @@ const bivarMapSpec = {
                     "type": "quantitative",
                     "scale": {"scheme": "greens"},
                     "legend": {"title": "Avg Protection Rate (%)",
-                        "orient": "top-right",
-                        "direction": "vertical",
+                        "orient": "bottom-left",
+                        "direction": "horizontal",
                     }
                 },
                 "tooltip": [
@@ -440,8 +499,8 @@ const bivarMapSpec = {
             "type": "quantitative",
             "scale": {"range": [100, 3000]},
             "legend": {"title": "Threatened Species",
-                "orient": "top-right",
-                "direction": "vertical",
+                "orient": "bottom-left",
+                "direction": "horizontal",
             }
         },
         "tooltip": [
@@ -450,7 +509,26 @@ const bivarMapSpec = {
             {"field": "totalSpecies", "type": "quantitative", "title": "Threatened Species"}
         ]
     }
-}
+},
+    {
+            "data": {
+                "values": [
+                    {"state": "NSW", "lat": -32.5, "lon": 146.5},
+                    {"state": "VIC", "lat": -37.0, "lon": 144.0},
+                    {"state": "QLD", "lat": -22.0, "lon": 144.0},
+                    {"state": "SA",  "lat": -30.0, "lon": 135.0},
+                    {"state": "WA",  "lat": -25.0, "lon": 121.0},
+                    {"state": "TAS", "lat": -42.0, "lon": 146.5},
+                    {"state": "NT",  "lat": -19.0, "lon": 133.0}
+                ]
+            },
+            "mark": {"type": "text", "fontSize": 10, "fontWeight": "bold", "fill": "white", "dy": -20},
+            "encoding": {
+                "longitude": {"field": "lon", "type": "quantitative"},
+                "latitude":  {"field": "lat", "type": "quantitative"},
+                "text":      {"field": "state", "type": "nominal"}
+            }
+        }
     ]
 };
 
