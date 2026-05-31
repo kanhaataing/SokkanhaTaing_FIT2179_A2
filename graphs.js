@@ -190,7 +190,7 @@ const barChartSpec = {
             "type": "nominal",
             "scale": {
                 "domain": ["birds", "mammals", "reptiles", "ray-finned fishes", "frogs", "Crustaceans", "insects", "sharks"],
-                "range": ["#7fc7cc", "#af5031", "#4b5b34", "#092f33", "#ea8913", "#e9c46a", "#fdaba5", "#980204"]
+                "range": ["#c85555", "#c85555", "#c85555", "#c85555", "#c85555", "#c85555", "#c85555", "#c85555",]
             },
             "legend": null
         },
@@ -293,7 +293,7 @@ const lollipopSpec = {
     ],
     "layer": [
         {
-            "mark": {"type": "rule", "color": "#c1121f", "strokeWidth": 2},
+            "mark": {"type": "rule", "color": "#c85555", "strokeWidth": 2},
             "encoding": {
                 "y": {"field": "Threat", "type": "nominal", "sort": "-x", "title": null},
                 "x": {"field": "Proportion of EPBC listed species (%)", "type": "quantitative", "title": "% of Species Affected"},
@@ -349,7 +349,7 @@ function drawCombinedChart(environment) {
                 "type": "nominal",
                 "scale": {
                     "domain": ["Terrestrial - Introduced", "Terrestrial - Invasive", "Marine - Introduced", "Marine - Invasive"],
-                    "range": ["#4b5b34", "#a7c957", "#4a90d9", "#1d3557"]
+                    "range": ["#B5D984", "#687d31", "#6fa9bb", "#406768"]
                 },
                 "legend": {"title": "Category", 
                     "orient": "bottom"
@@ -388,11 +388,18 @@ const divergingbarSpec = {
     "height": 400,
     "data": {"url": "protection_stacked.csv"},
     "transform": [
-        {
-            "calculate": "datum.type === 'Unprotected' ? -datum.rate : datum.rate",
-            "as": "divergingRate"
-        }
-    ],
+    {
+        "filter": "datum.type !== 'Indigenous Protected'"
+    },
+    {
+        "calculate": "datum.type === 'Non-Indigenous Protected' ? 'Protected' : datum.type",
+        "as": "type"
+    },
+    {
+        "calculate": "datum.type === 'Unprotected' ? -datum.rate : datum.rate",
+        "as": "divergingRate"
+    }
+],
     "layer": [
         {
             "mark": {"type": "bar", "cornerRadiusEnd": 2},
@@ -414,12 +421,10 @@ const divergingbarSpec = {
                     "field": "type",
                     "type": "nominal",
                     "scale": {
-                        "domain": ["Indigenous Protected", "Non-Indigenous Protected", "Unprotected"],
-                        "range": ["#4b5b34", "#a7c957", "#c1121f"]
+                        "domain": ["Protected", "Unprotected"],
+                        "range": ["#b5d984", "#c85555"]
                     },
-                    "legend": {"title": "Protection Type", 
-                        "orient": "bottom"
-                    }
+                    "legend": {"title": "Protection Type", "orient": "bottom"}
                 },
                 "tooltip": [
                     {"field": "epbcStatus", "type": "nominal", "title": "Threat Level"},
@@ -434,6 +439,7 @@ const divergingbarSpec = {
         }
     ]
 };
+
 vegaEmbed('#divergingbar_chartTen', divergingbarSpec, {
     "actions": false,
     "renderer": "svg"
@@ -465,7 +471,7 @@ const bivarMapSpec = {
                 "color": {
                     "field": "avgProtectionRate",
                     "type": "quantitative",
-                    "scale": {"scheme": "greens"},
+                    "scale": {"range": ["#144425", "#b5d984"]},
                     "legend": {"title": "Avg Protection Rate (%)",
                         "orient": "bottom-left",
                         "direction": "horizontal",

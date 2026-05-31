@@ -7,6 +7,19 @@ body {
     overflow-x: hidden;
 }
 
+.name_box {
+    border: 1px solid #403931;
+    background-color: #403931;
+    padding: 10px 30px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+    display: inline-block;
+    float: right;
+    margin-top: -20px;
+}
+
 
 #title{
    color: #403931;
@@ -20,6 +33,7 @@ body {
     padding-bottom: 20px;
     border-top: 2px solid #403931;
     padding-top: 20px;
+    margin-top: 60px;
 }
 
 /* Introduction of the project */
@@ -315,7 +329,7 @@ h3{
 }
 
 .pill-animal {
-  background: #B5D4F4;
+  background: #6fa9bb;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -324,7 +338,7 @@ h3{
 }
 
 .pill-plant {
-  background: #C0DD97;
+  background: #b5d984;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -335,13 +349,13 @@ h3{
 .pill-animal span {
   font-size: 12px;
   font-weight: 500;
-  color: #0C447C;
+  color:white;
 }
 
 .pill-plant span {
   font-size: 12px;
   font-weight: 500;
-  color: #27500A;
+  color: white;
 }
 
 .pill-legend {
@@ -785,7 +799,7 @@ h3{
 
 .protected_bar {
     width: 24%;
-    background-color: #a7c957;
+    background-color: #b5d984;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -795,7 +809,7 @@ h3{
 
 .unprotected_bar {
     width: 76%;
-    background-color: #c1121f;
+    background-color: #c85555;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -919,23 +933,61 @@ h3{
     box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
     max-width: 180px;
 }
+/* Standard laptop */
+@media (max-width: 1600px) {
+    .diverging_chart_row {
+        gap: 40px;
+    }
 
-#nsw_vic_annotation {
-    top: 500px;
-    right: 80px;
+    #divergingbar_chartTen {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    #nsw_vic_annotation {
+        top: 500px;
+        right: 40px;
+    }
+
+    #nt_wa_annotation {
+        top: 200px;
+        left: 30px;
+    }
+
+    #qld_annotation_two {
+        top: 180px;
+        right: 100px;
+    }
+
+    #tas_annotation {
+        top: 700px;
+        right: 450px;
+    }
 }
 
-#nt_wa_annotation {
-    top: 150px;
-    left: 20px;
-}
+/* Large monitor */
+@media (min-width: 1600px) {
+    .diverging_chart_row {
+        gap: 60px;
+    }
 
-#qld_annotation_two {
-    top: 180px;
-    right: 80px;
-}
+    #nsw_vic_annotation {
+        top: 550px;
+        right: 160px;
+    }
 
-#tas_annotation {
-    top: 700px;
-    right: 500px;
+    #nt_wa_annotation {
+        top: 250px;
+        left: 100px;
+    }
+
+    #qld_annotation_two {
+        top: 220px;
+        right: 260px;
+    }
+
+    #tas_annotation {
+        top: 680px;
+        right: 700px;
+    }
 }
