@@ -991,3 +991,45 @@ h3{
         right: 700px;
     }
 }
+
+/*footer design layout*/
+
+.data_sources {
+    border-top: 1px solid #403931;
+    margin-top: 60px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.sources_title {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #403931;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sources_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sources_list li a {
+    font-family: Georgia, serif;
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    border-bottom: 0.5px solid #ccc;
+    padding-bottom: 2px;
+}
+
+.sources_list li a:hover {
+    color: #403931;
+    border-bottom-color: #403931;
+}
